@@ -1,0 +1,14 @@
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\bin\Debug\netcoreapp3.1\ca_sln.Infrastructure.deps.json
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\bin\Debug\netcoreapp3.1\ca_sln.Infrastructure.dll
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\bin\Debug\netcoreapp3.1\ca_sln.Infrastructure.pdb
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\bin\Debug\netcoreapp3.1\ca_sln.Application.dll
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\bin\Debug\netcoreapp3.1\ca_sln.Domain.dll
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\bin\Debug\netcoreapp3.1\ca_sln.Application.pdb
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\bin\Debug\netcoreapp3.1\ca_sln.Domain.pdb
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csprojAssemblyReference.cache
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CoreCompileInputs.cache
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfoInputs.cache
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfo.cs
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CopyComplete
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\obj\Debug\netcoreapp3.1\ca_sln.Infrastructure.dll
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Infrastructure\obj\Debug\netcoreapp3.1\ca_sln.Infrastructure.pdb

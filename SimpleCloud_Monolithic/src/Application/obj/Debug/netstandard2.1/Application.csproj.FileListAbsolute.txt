@@ -1,0 +1,12 @@
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\bin\Debug\netstandard2.1\ca_sln.Application.deps.json
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\bin\Debug\netstandard2.1\ca_sln.Application.dll
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\bin\Debug\netstandard2.1\ca_sln.Application.pdb
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\bin\Debug\netstandard2.1\ca_sln.Domain.dll
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\bin\Debug\netstandard2.1\ca_sln.Domain.pdb
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\obj\Debug\netstandard2.1\Application.csprojAssemblyReference.cache
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\obj\Debug\netstandard2.1\Application.csproj.CoreCompileInputs.cache
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\obj\Debug\netstandard2.1\Application.AssemblyInfoInputs.cache
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\obj\Debug\netstandard2.1\Application.AssemblyInfo.cs
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\obj\Debug\netstandard2.1\Application.csproj.CopyComplete
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\obj\Debug\netstandard2.1\ca_sln.Application.dll
+D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Application\obj\Debug\netstandard2.1\ca_sln.Application.pdb
