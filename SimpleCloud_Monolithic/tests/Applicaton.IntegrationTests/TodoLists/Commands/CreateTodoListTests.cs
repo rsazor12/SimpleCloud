@@ -1,12 +1,12 @@
-﻿using ca_sln.Application.Common.Exceptions;
-using ca_sln.Application.TodoLists.Commands.CreateTodoList;
-using ca_sln.Domain.Entities;
+﻿using SimpleCloudMonolithic.Application.Common.Exceptions;
+using SimpleCloudMonolithic.Application.TodoLists.Commands.CreateTodoList;
+using SimpleCloudMonolithic.Domain.Entities;
 using FluentAssertions;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.IntegrationTests.TodoLists.Commands
+namespace SimpleCloudMonolithic.Application.IntegrationTests.TodoLists.Commands
 {
     using static Testing;
 

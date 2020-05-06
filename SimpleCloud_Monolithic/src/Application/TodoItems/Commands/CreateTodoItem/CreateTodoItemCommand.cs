@@ -1,10 +1,10 @@
-﻿using ca_sln.Application.Common.Interfaces;
-using ca_sln.Domain.Entities;
+﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
+using SimpleCloudMonolithic.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.TodoItems.Commands.CreateTodoItem
+namespace SimpleCloudMonolithic.Application.TodoItems.Commands.CreateTodoItem
 {
     public class CreateTodoItemCommand : IRequest<int>
     {

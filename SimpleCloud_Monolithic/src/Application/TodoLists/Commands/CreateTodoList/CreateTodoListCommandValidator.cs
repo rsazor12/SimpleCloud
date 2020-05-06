@@ -1,10 +1,10 @@
-﻿using ca_sln.Application.Common.Interfaces;
+﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.TodoLists.Commands.CreateTodoList
+namespace SimpleCloudMonolithic.Application.TodoLists.Commands.CreateTodoList
 {
     public class CreateTodoListCommandValidator : AbstractValidator<CreateTodoListCommand>
     {

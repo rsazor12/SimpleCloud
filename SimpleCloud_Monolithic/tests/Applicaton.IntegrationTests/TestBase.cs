@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.IntegrationTests
+namespace SimpleCloudMonolithic.Application.IntegrationTests
 {
     using static Testing;
 

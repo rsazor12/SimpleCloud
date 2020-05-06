@@ -1,12 +1,12 @@
-﻿using ca_sln.Application.TodoItems.Commands.CreateTodoItem;
-using ca_sln.Application.TodoItems.Commands.DeleteTodoItem;
-using ca_sln.Application.TodoItems.Commands.UpdateTodoItem;
-using ca_sln.Application.TodoItems.Commands.UpdateTodoItemDetail;
+﻿using SimpleCloudMonolithic.Application.TodoItems.Commands.CreateTodoItem;
+using SimpleCloudMonolithic.Application.TodoItems.Commands.DeleteTodoItem;
+using SimpleCloudMonolithic.Application.TodoItems.Commands.UpdateTodoItem;
+using SimpleCloudMonolithic.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace ca_sln.WebUI.Controllers
+namespace SimpleCloudMonolithic.WebUI.Controllers
 {
     [Authorize]
     public class TodoItemsController : ApiController

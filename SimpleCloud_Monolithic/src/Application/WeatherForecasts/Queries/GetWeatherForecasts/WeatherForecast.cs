@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ca_sln.Application.WeatherForecasts.Queries.GetWeatherForecasts
+namespace SimpleCloudMonolithic.Application.WeatherForecasts.Queries.GetWeatherForecasts
 {
     public class WeatherForecast
     {

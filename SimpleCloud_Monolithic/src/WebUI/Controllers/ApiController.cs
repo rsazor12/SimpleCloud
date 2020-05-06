@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ca_sln.WebUI.Controllers
+namespace SimpleCloudMonolithic.WebUI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

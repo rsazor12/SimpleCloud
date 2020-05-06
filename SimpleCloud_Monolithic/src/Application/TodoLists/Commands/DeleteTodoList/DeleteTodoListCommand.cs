@@ -1,13 +1,13 @@
-﻿using ca_sln.Application.Common.Exceptions;
-using ca_sln.Application.Common.Interfaces;
-using ca_sln.Domain.Entities;
+﻿using SimpleCloudMonolithic.Application.Common.Exceptions;
+using SimpleCloudMonolithic.Application.Common.Interfaces;
+using SimpleCloudMonolithic.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.TodoLists.Commands.DeleteTodoList
+namespace SimpleCloudMonolithic.Application.TodoLists.Commands.DeleteTodoList
 {
     public class DeleteTodoListCommand : IRequest
     {

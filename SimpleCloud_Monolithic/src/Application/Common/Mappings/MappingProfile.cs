@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace ca_sln.Application.Common.Mappings
+namespace SimpleCloudMonolithic.Application.Common.Mappings
 {
     public class MappingProfile : Profile
     {

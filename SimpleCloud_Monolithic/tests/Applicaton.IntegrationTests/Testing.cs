@@ -1,7 +1,7 @@
-﻿using ca_sln.Application.Common.Interfaces;
-using ca_sln.Infrastructure.Identity;
-using ca_sln.Infrastructure.Persistence;
-using ca_sln.WebUI;
+﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
+using SimpleCloudMonolithic.Infrastructure.Identity;
+using SimpleCloudMonolithic.Infrastructure.Persistence;
+using SimpleCloudMonolithic.WebUI;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

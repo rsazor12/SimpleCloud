@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.Results;
 
-namespace ca_sln.Application.Common.Exceptions
+namespace SimpleCloudMonolithic.Application.Common.Exceptions
 {
     public class ValidationException : Exception
     {

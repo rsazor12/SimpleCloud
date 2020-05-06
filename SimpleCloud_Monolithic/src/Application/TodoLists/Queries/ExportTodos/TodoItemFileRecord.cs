@@ -1,7 +1,7 @@
-﻿using ca_sln.Application.Common.Mappings;
-using ca_sln.Domain.Entities;
+﻿using SimpleCloudMonolithic.Application.Common.Mappings;
+using SimpleCloudMonolithic.Domain.Entities;
 
-namespace ca_sln.Application.TodoLists.Queries.ExportTodos
+namespace SimpleCloudMonolithic.Application.TodoLists.Queries.ExportTodos
 {
     public class TodoItemRecord : IMapFrom<TodoItem>
     {

@@ -1,9 +1,9 @@
 ﻿
-using ca_sln.Domain.Entities;
+using SimpleCloudMonolithic.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ca_sln.Infrastructure.Persistence.Configurations
+namespace SimpleCloudMonolithic.Infrastructure.Persistence.Configurations
 {
     public class TodoListConfiguration : IEntityTypeConfiguration<TodoList>
     {

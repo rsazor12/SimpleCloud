@@ -1,13 +1,13 @@
-﻿using ca_sln.Application.TodoLists.Commands.CreateTodoList;
-using ca_sln.Application.TodoLists.Commands.DeleteTodoList;
-using ca_sln.Application.TodoLists.Commands.UpdateTodoList;
-using ca_sln.Application.TodoLists.Queries.ExportTodos;
-using ca_sln.Application.TodoLists.Queries.GetTodos;
+﻿using SimpleCloudMonolithic.Application.TodoLists.Commands.CreateTodoList;
+using SimpleCloudMonolithic.Application.TodoLists.Commands.DeleteTodoList;
+using SimpleCloudMonolithic.Application.TodoLists.Commands.UpdateTodoList;
+using SimpleCloudMonolithic.Application.TodoLists.Queries.ExportTodos;
+using SimpleCloudMonolithic.Application.TodoLists.Queries.GetTodos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace ca_sln.WebUI.Controllers
+namespace SimpleCloudMonolithic.WebUI.Controllers
 {
     [Authorize]
     public class TodoListsController : ApiController

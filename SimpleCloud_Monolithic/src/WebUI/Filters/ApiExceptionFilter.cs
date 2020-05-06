@@ -1,11 +1,11 @@
-﻿using ca_sln.Application.Common.Exceptions;
+﻿using SimpleCloudMonolithic.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Collections.Generic;
 
-namespace ca_sln.WebUI.Filters
+namespace SimpleCloudMonolithic.WebUI.Filters
 {
     public class ApiExceptionFilter : ExceptionFilterAttribute
     {

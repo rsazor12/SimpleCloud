@@ -1,7 +1,7 @@
-﻿using ca_sln.Application.Common.Models;
+﻿using SimpleCloudMonolithic.Application.Common.Models;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.Common.Interfaces
+namespace SimpleCloudMonolithic.Application.Common.Interfaces
 {
     public interface IIdentityService
     {

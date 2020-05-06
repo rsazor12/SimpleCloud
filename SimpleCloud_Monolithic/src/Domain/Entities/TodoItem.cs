@@ -1,8 +1,8 @@
-﻿using ca_sln.Domain.Common;
-using ca_sln.Domain.Enums;
+﻿using SimpleCloudMonolithic.Domain.Common;
+using SimpleCloudMonolithic.Domain.Enums;
 using System;
 
-namespace ca_sln.Domain.Entities
+namespace SimpleCloudMonolithic.Domain.Entities
 {
     public class TodoItem : AuditableEntity
     {

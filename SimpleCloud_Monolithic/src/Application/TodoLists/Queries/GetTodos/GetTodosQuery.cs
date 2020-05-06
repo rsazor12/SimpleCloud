@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using ca_sln.Application.Common.Interfaces;
-using ca_sln.Domain.Enums;
+using SimpleCloudMonolithic.Application.Common.Interfaces;
+using SimpleCloudMonolithic.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.TodoLists.Queries.GetTodos
+namespace SimpleCloudMonolithic.Application.TodoLists.Queries.GetTodos
 {
     public class GetTodosQuery : IRequest<TodosVm>
     {

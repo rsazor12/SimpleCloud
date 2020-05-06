@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ca_sln.Application.Common.Exceptions
+namespace SimpleCloudMonolithic.Application.Common.Exceptions
 {
     public class NotFoundException : Exception
     {

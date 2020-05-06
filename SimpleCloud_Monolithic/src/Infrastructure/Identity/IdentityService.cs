@@ -1,11 +1,11 @@
-﻿using ca_sln.Application.Common.Interfaces;
-using ca_sln.Application.Common.Models;
+﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
+using SimpleCloudMonolithic.Application.Common.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ca_sln.Infrastructure.Identity
+namespace SimpleCloudMonolithic.Infrastructure.Identity
 {
     public class IdentityService : IIdentityService
     {

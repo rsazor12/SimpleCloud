@@ -1,9 +1,9 @@
-﻿using ca_sln.Domain.Entities;
+﻿using SimpleCloudMonolithic.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.Common.Interfaces
+namespace SimpleCloudMonolithic.Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {

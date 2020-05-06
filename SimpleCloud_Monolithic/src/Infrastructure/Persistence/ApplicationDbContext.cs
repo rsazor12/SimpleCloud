@@ -1,7 +1,7 @@
-﻿using ca_sln.Application.Common.Interfaces;
-using ca_sln.Domain.Common;
-using ca_sln.Domain.Entities;
-using ca_sln.Infrastructure.Identity;
+﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
+using SimpleCloudMonolithic.Domain.Common;
+using SimpleCloudMonolithic.Domain.Entities;
+using SimpleCloudMonolithic.Infrastructure.Identity;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ca_sln.Infrastructure.Persistence
+namespace SimpleCloudMonolithic.Infrastructure.Persistence
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
     {

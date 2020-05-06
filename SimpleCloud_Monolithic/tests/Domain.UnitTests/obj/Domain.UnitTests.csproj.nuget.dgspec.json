@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj": {}
+    "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj": {}
   },
   "projects": {
-    "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\src\\Domain\\Domain.csproj": {
+    "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\src\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\src\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\src\\Domain\\Domain.csproj",
         "projectName": "ca_sln.Domain",
-        "projectPath": "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\src\\Domain\\Domain.csproj",
+        "projectPath": "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\src\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Y520\\.nuget\\packages\\",
-        "outputPath": "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\src\\Domain\\obj\\",
+        "outputPath": "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\src\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Microsoft\\Xamarin\\NuGet\\",
@@ -61,14 +61,14 @@
         }
       }
     },
-    "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj": {
+    "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
+        "projectUniqueName": "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
         "projectName": "ca_sln.Domain.UnitTests",
-        "projectPath": "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
+        "projectPath": "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
         "packagesPath": "C:\\Users\\Y520\\.nuget\\packages\\",
-        "outputPath": "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\tests\\Domain.UnitTests\\obj\\",
+        "outputPath": "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\tests\\Domain.UnitTests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Microsoft\\Xamarin\\NuGet\\",
@@ -89,8 +89,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\src\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\src\\Domain\\Domain.csproj"
+              "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\src\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\src\\Domain\\Domain.csproj"
               }
             }
           }

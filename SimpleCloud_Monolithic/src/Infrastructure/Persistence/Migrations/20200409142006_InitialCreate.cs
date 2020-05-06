@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ca_sln.Infrastructure.Persistence.Migrations
+namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
 {
     public partial class InitialCreate : Migration
     {

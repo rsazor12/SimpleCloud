@@ -1,8 +1,8 @@
-﻿using ca_sln.Application.Common.Interfaces;
+﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
-namespace ca_sln.WebUI.Services
+namespace SimpleCloudMonolithic.WebUI.Services
 {
     public class CurrentUserService : ICurrentUserService
     {

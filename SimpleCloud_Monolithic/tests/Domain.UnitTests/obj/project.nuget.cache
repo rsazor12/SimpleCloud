@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mOIKgKJllPBVp4ubghdwK0/Iz5zVoAdgh8cnPYpCrWaX1bycYSChd2tb6XEg1k3ZSwCvuBAjIWZudAPCSCjlFw==",
+  "dgSpecHash": "hT6So4sXAG0I0HCgv4Y/FhI9QaiJm5M31tVUA1pcXCDvB65zfaWLskbN+5rg96PwlbKbd9MCRCAu3LuBbtBTtg==",
   "success": true,
-  "projectFilePath": "D:\\STUDIA\\II Stopien\\PRACA MAGISTERSKA\\ca-sln\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
+  "projectFilePath": "D:\\STUDIA\\PRACA MAGISTERSKA\\SimpleCloud_Monolithic\\tests\\Domain.UnitTests\\Domain.UnitTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Y520\\.nuget\\packages\\fluentassertions\\5.10.3\\fluentassertions.5.10.3.nupkg.sha512",
     "C:\\Users\\Y520\\.nuget\\packages\\microsoft.codecoverage\\16.4.0\\microsoft.codecoverage.16.4.0.nupkg.sha512",

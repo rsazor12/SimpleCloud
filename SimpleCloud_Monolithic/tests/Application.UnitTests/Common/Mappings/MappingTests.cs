@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using ca_sln.Application.Common.Mappings;
-using ca_sln.Application.TodoLists.Queries.GetTodos;
-using ca_sln.Domain.Entities;
+using SimpleCloudMonolithic.Application.Common.Mappings;
+using SimpleCloudMonolithic.Application.TodoLists.Queries.GetTodos;
+using SimpleCloudMonolithic.Domain.Entities;
 using NUnit.Framework;
 using System;
 
-namespace ca_sln.Application.UnitTests.Common.Mappings
+namespace SimpleCloudMonolithic.Application.UnitTests.Common.Mappings
 {
     public class MappingTests
     {

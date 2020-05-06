@@ -1,10 +1,10 @@
-﻿using ca_sln.Application.Common.Interfaces;
+﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.Common.Behaviours
+namespace SimpleCloudMonolithic.Application.Common.Behaviours
 {
     public class RequestLogger<TRequest> : IRequestPreProcessor<TRequest>
     {

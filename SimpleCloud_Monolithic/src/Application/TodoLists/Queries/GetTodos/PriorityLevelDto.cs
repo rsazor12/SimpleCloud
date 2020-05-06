@@ -1,4 +1,4 @@
-﻿namespace ca_sln.Application.TodoLists.Queries.GetTodos
+﻿namespace SimpleCloudMonolithic.Application.TodoLists.Queries.GetTodos
 {
     public class PriorityLevelDto
     {

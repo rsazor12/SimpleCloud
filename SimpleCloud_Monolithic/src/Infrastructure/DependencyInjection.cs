@@ -1,14 +1,15 @@
-﻿using ca_sln.Application.Common.Interfaces;
-using ca_sln.Infrastructure.Files;
-using ca_sln.Infrastructure.Identity;
-using ca_sln.Infrastructure.Persistence;
-using ca_sln.Infrastructure.Services;
+﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
+using SimpleCloudMonolithic.Infrastructure.Files;
+using SimpleCloudMonolithic.Infrastructure.Identity;
+using SimpleCloudMonolithic.Infrastructure.Persistence;
+using SimpleCloudMonolithic.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ModelBuilder = SimpleCloudMonolithic.Infrastructure.Services.ModelBuilder;
 
-namespace ca_sln.Infrastructure
+namespace SimpleCloudMonolithic.Infrastructure
 {
     public static class DependencyInjection
     {
@@ -35,9 +36,11 @@ namespace ca_sln.Infrastructure
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
+            // services 
             services.AddTransient<IDateTime, DateTimeService>();
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
+            services.AddTransient<IModelBuilder, ModelBuilder>();
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();

@@ -4,9 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
-using ValidationException = ca_sln.Application.Common.Exceptions.ValidationException;
+using ValidationException = SimpleCloudMonolithic.Application.Common.Exceptions.ValidationException;
 
-namespace ca_sln.Application.Common.Behaviours
+namespace SimpleCloudMonolithic.Application.Common.Behaviours
 {
     public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>

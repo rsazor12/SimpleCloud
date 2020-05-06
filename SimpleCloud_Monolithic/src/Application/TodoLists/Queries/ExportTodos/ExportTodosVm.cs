@@ -1,4 +1,4 @@
-﻿namespace ca_sln.Application.TodoLists.Queries.ExportTodos
+﻿namespace SimpleCloudMonolithic.Application.TodoLists.Queries.ExportTodos
 {
     public class ExportTodosVm
     {

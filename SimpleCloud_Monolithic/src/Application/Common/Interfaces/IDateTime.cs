@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ca_sln.Application.Common.Interfaces
+namespace SimpleCloudMonolithic.Application.Common.Interfaces
 {
     public interface IDateTime
     {

@@ -1,8 +1,8 @@
-﻿using ca_sln.Application.Common.Models;
+﻿using SimpleCloudMonolithic.Application.Common.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 
-namespace ca_sln.Infrastructure.Identity
+namespace SimpleCloudMonolithic.Infrastructure.Identity
 {
     public static class IdentityResultExtensions
     {

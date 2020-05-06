@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ca_sln.Domain.Common
+namespace SimpleCloudMonolithic.Domain.Common
 {
     public abstract class AuditableEntity
     {

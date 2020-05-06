@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ca_sln.Domain.Exceptions
+namespace SimpleCloudMonolithic.Domain.Exceptions
 {
     public class AdAccountInvalidException : Exception
     {

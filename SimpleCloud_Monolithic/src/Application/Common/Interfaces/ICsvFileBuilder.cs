@@ -1,7 +1,7 @@
-﻿using ca_sln.Application.TodoLists.Queries.ExportTodos;
+﻿using SimpleCloudMonolithic.Application.TodoLists.Queries.ExportTodos;
 using System.Collections.Generic;
 
-namespace ca_sln.Application.Common.Interfaces
+namespace SimpleCloudMonolithic.Application.Common.Interfaces
 {
     public interface ICsvFileBuilder
     {

@@ -1,7 +1,7 @@
-﻿using ca_sln.Domain.Common;
+﻿using SimpleCloudMonolithic.Domain.Common;
 using System.Collections.Generic;
 
-namespace ca_sln.Domain.Entities
+namespace SimpleCloudMonolithic.Domain.Entities
 {
     public class TodoList : AuditableEntity
     {

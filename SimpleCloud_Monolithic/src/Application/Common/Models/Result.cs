@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ca_sln.Application.Common.Models
+namespace SimpleCloudMonolithic.Application.Common.Models
 {
     public class Result
     {

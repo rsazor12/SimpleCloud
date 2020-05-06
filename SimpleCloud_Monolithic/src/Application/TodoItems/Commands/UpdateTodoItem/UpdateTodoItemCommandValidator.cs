@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ca_sln.Application.TodoItems.Commands.UpdateTodoItem
+namespace SimpleCloudMonolithic.Application.TodoItems.Commands.UpdateTodoItem
 {
     public class UpdateTodoItemCommandValidator : AbstractValidator<UpdateTodoItemCommand>
     {

@@ -1,8 +1,8 @@
-﻿using ca_sln.Application.TodoLists.Queries.ExportTodos;
+﻿using SimpleCloudMonolithic.Application.TodoLists.Queries.ExportTodos;
 using CsvHelper.Configuration;
 using System.Globalization;
 
-namespace ca_sln.Infrastructure.Files.Maps
+namespace SimpleCloudMonolithic.Infrastructure.Files.Maps
 {
     public class TodoItemRecordMap : ClassMap<TodoItemRecord>
     {

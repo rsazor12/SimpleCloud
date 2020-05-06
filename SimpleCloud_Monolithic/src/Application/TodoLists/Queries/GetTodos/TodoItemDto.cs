@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using ca_sln.Application.Common.Mappings;
-using ca_sln.Domain.Entities;
+using SimpleCloudMonolithic.Application.Common.Mappings;
+using SimpleCloudMonolithic.Domain.Entities;
 
-namespace ca_sln.Application.TodoLists.Queries.GetTodos
+namespace SimpleCloudMonolithic.Application.TodoLists.Queries.GetTodos
 {
     public class TodoItemDto : IMapFrom<TodoItem>
     {

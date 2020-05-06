@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace ca_sln.Application.Common.Mappings
+namespace SimpleCloudMonolithic.Application.Common.Mappings
 {
     public interface IMapFrom<T>
     {   

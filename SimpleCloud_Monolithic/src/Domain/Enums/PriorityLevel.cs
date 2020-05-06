@@ -1,4 +1,4 @@
-﻿namespace ca_sln.Domain.Enums
+﻿namespace SimpleCloudMonolithic.Domain.Enums
 {
     public enum PriorityLevel
     {

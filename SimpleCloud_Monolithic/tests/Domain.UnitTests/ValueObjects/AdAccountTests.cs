@@ -1,9 +1,9 @@
-﻿using ca_sln.Domain.Exceptions;
-using ca_sln.Domain.ValueObjects;
+﻿using SimpleCloudMonolithic.Domain.Exceptions;
+using SimpleCloudMonolithic.Domain.ValueObjects;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace ca_sln.Domain.UnitTests.ValueObjects
+namespace SimpleCloudMonolithic.Domain.UnitTests.ValueObjects
 {
     public class AdAccountTests
     {

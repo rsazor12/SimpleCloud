@@ -1,10 +1,10 @@
-﻿using ca_sln.Domain.Entities;
-using ca_sln.Infrastructure.Identity;
+﻿using SimpleCloudMonolithic.Domain.Entities;
+using SimpleCloudMonolithic.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ca_sln.Infrastructure.Persistence
+namespace SimpleCloudMonolithic.Infrastructure.Persistence
 {
     public static class ApplicationDbContextSeed
     {

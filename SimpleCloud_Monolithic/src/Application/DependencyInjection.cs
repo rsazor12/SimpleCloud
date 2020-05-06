@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using ca_sln.Application.Common.Behaviours;
+using SimpleCloudMonolithic.Application.Common.Behaviours;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace ca_sln.Application
+namespace SimpleCloudMonolithic.Application
 {
     public static class DependencyInjection
     {

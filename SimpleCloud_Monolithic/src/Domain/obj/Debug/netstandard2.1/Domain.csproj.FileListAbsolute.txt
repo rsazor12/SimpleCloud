@@ -1,9 +1,0 @@
-D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Domain\bin\Debug\netstandard2.1\ca_sln.Domain.deps.json
-D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Domain\bin\Debug\netstandard2.1\ca_sln.Domain.dll
-D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Domain\bin\Debug\netstandard2.1\ca_sln.Domain.pdb
-D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Domain\obj\Debug\netstandard2.1\Domain.csprojAssemblyReference.cache
-D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Domain\obj\Debug\netstandard2.1\Domain.csproj.CoreCompileInputs.cache
-D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Domain\obj\Debug\netstandard2.1\Domain.AssemblyInfoInputs.cache
-D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Domain\obj\Debug\netstandard2.1\Domain.AssemblyInfo.cs
-D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Domain\obj\Debug\netstandard2.1\ca_sln.Domain.dll
-D:\STUDIA\II Stopien\PRACA MAGISTERSKA\ca-sln\src\Domain\obj\Debug\netstandard2.1\ca_sln.Domain.pdb

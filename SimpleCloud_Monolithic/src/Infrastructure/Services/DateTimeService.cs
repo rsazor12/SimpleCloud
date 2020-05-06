@@ -1,7 +1,7 @@
-﻿using ca_sln.Application.Common.Interfaces;
+﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
 using System;
 
-namespace ca_sln.Infrastructure.Services
+namespace SimpleCloudMonolithic.Infrastructure.Services
 {
     public class DateTimeService : IDateTime
     {

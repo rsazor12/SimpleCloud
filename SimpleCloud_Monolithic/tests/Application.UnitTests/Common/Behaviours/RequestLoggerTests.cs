@@ -1,13 +1,13 @@
-﻿using ca_sln.Application.Common.Behaviours;
-using ca_sln.Application.Common.Interfaces;
-using ca_sln.Application.TodoItems.Commands.CreateTodoItem;
+﻿using SimpleCloudMonolithic.Application.Common.Behaviours;
+using SimpleCloudMonolithic.Application.Common.Interfaces;
+using SimpleCloudMonolithic.Application.TodoItems.Commands.CreateTodoItem;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.UnitTests.Common.Behaviours
+namespace SimpleCloudMonolithic.Application.UnitTests.Common.Behaviours
 {
     public class RequestLoggerTests
     {

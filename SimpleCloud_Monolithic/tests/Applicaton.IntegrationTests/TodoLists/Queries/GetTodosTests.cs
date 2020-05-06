@@ -1,9 +1,9 @@
-﻿using ca_sln.Application.TodoLists.Queries.GetTodos;
+﻿using SimpleCloudMonolithic.Application.TodoLists.Queries.GetTodos;
 using FluentAssertions;
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace ca_sln.Application.IntegrationTests.TodoLists.Queries
+namespace SimpleCloudMonolithic.Application.IntegrationTests.TodoLists.Queries
 {
     using static Testing;
 

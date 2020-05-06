@@ -1,14 +1,14 @@
-﻿using ca_sln.Application.Common.Exceptions;
-using ca_sln.Application.TodoItems.Commands.CreateTodoItem;
-using ca_sln.Application.TodoItems.Commands.UpdateTodoItem;
-using ca_sln.Application.TodoLists.Commands.CreateTodoList;
-using ca_sln.Domain.Entities;
+﻿using SimpleCloudMonolithic.Application.Common.Exceptions;
+using SimpleCloudMonolithic.Application.TodoItems.Commands.CreateTodoItem;
+using SimpleCloudMonolithic.Application.TodoItems.Commands.UpdateTodoItem;
+using SimpleCloudMonolithic.Application.TodoLists.Commands.CreateTodoList;
+using SimpleCloudMonolithic.Domain.Entities;
 using FluentAssertions;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using System;
 
-namespace ca_sln.Application.IntegrationTests.TodoItems.Commands
+namespace SimpleCloudMonolithic.Application.IntegrationTests.TodoItems.Commands
 {
     using static Testing;
 

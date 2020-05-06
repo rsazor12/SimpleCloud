@@ -1,9 +1,9 @@
-using ca_sln.Application;
-using ca_sln.Application.Common.Interfaces;
-using ca_sln.Infrastructure;
-using ca_sln.Infrastructure.Persistence;
-using ca_sln.WebUI.Filters;
-using ca_sln.WebUI.Services;
+using SimpleCloudMonolithic.Application;
+using SimpleCloudMonolithic.Application.Common.Interfaces;
+using SimpleCloudMonolithic.Infrastructure;
+using SimpleCloudMonolithic.Infrastructure.Persistence;
+using SimpleCloudMonolithic.WebUI.Filters;
+using SimpleCloudMonolithic.WebUI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +15,7 @@ using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
 
-namespace ca_sln.WebUI
+namespace SimpleCloudMonolithic.WebUI
 {
     public class Startup
     {

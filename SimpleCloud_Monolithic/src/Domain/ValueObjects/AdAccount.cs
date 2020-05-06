@@ -1,9 +1,9 @@
-﻿using ca_sln.Domain.Common;
-using ca_sln.Domain.Exceptions;
+﻿using SimpleCloudMonolithic.Domain.Common;
+using SimpleCloudMonolithic.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 
-namespace ca_sln.Domain.ValueObjects
+namespace SimpleCloudMonolithic.Domain.ValueObjects
 {
     public class AdAccount : ValueObject
     {
