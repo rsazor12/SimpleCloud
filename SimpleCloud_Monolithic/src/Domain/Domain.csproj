@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>ca_sln.Domain</RootNamespace>
-    <AssemblyName>ca_sln.Domain</AssemblyName>
+    <RootNamespace>SimpleCloud_Monolithic.Domain</RootNamespace>
+    <AssemblyName>SimpleCloud_Monolithic.Domain</AssemblyName>
   </PropertyGroup>
 
 </Project>

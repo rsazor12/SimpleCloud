@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>ca_sln.Infrastructure</RootNamespace>
-    <AssemblyName>ca_sln.Infrastructure</AssemblyName>
+    <RootNamespace>SimpleCloud_Monolithic.Infrastructure</RootNamespace>
+    <AssemblyName>SimpleCloud_Monolithic.Infrastructure</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>ca_sln.WebUI</RootNamespace>
-    <AssemblyName>ca_sln.WebUI</AssemblyName>
+    <RootNamespace>SimpleCloud_Monolithic.WebUI</RootNamespace>
+    <AssemblyName>SimpleCloud_Monolithic.WebUI</AssemblyName>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>true</IsPackable>
