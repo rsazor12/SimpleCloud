@@ -21,7 +21,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ca_sln.Domain.Entities.TodoItem", b =>
+            modelBuilder.Entity("SimpleCloud_Monolithic.Domain.Entities.TodoItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                     b.ToTable("TodoItems");
                 });
 
-            modelBuilder.Entity("ca_sln.Domain.Entities.TodoList", b =>
+            modelBuilder.Entity("SimpleCloud_Monolithic.Domain.Entities.TodoList", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -99,7 +99,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                     b.ToTable("TodoLists");
                 });
 
-            modelBuilder.Entity("ca_sln.Infrastructure.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("SimpleCloud_Monolithic.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -381,9 +381,9 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ca_sln.Domain.Entities.TodoItem", b =>
+            modelBuilder.Entity("SimpleCloud_Monolithic.Domain.Entities.TodoItem", b =>
                 {
-                    b.HasOne("ca_sln.Domain.Entities.TodoList", "List")
+                    b.HasOne("SimpleCloud_Monolithic.Domain.Entities.TodoList", "List")
                         .WithMany("Items")
                         .HasForeignKey("ListId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -401,7 +401,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ca_sln.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("SimpleCloud_Monolithic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -410,7 +410,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ca_sln.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("SimpleCloud_Monolithic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -425,7 +425,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ca_sln.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("SimpleCloud_Monolithic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -434,7 +434,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ca_sln.Infrastructure.Identity.ApplicationUser", null)
+                    b.HasOne("SimpleCloud_Monolithic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

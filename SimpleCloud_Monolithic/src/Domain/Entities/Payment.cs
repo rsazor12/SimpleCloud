@@ -4,7 +4,11 @@ using System.Text;
 
 namespace SimpleCloudMonolithic.Domain.Entities
 {
-    class Payment
+    public class Payment
     {
+        public Payment()
+        {
+
+        }
     }
 }

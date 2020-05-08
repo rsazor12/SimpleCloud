@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>ca_sln.Application.IntegrationTests</RootNamespace>
-    <AssemblyName>ca_sln.Application.IntegrationTests</AssemblyName>
+    <RootNamespace>SimpleCloud_Monolithic.Application.IntegrationTests</RootNamespace>
+    <AssemblyName>SimpleCloud_Monolithic.Application.IntegrationTests</AssemblyName>
     
     <IsPackable>false</IsPackable>
   </PropertyGroup>

@@ -30,7 +30,7 @@
       "serviceHost": null,
       "serviceBasePath": null,
       "serviceSchemes": [],
-      "infoTitle": "ca_sln API",
+      "infoTitle": "SimpleCloud_Monolithic API",
       "infoDescription": null,
       "infoVersion": "1.0.0",
       "documentTemplate": null,
@@ -110,7 +110,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "ClientApp/src/app/ca_sln-api.ts"
+      "output": "ClientApp/src/app/SimpleCloud_Monolithic-api.ts"
     }
   }
 }

@@ -1,42 +1,42 @@
-﻿using SimpleCloudMonolithic.Application.Common.Exceptions;
-using SimpleCloudMonolithic.Application.Common.Interfaces;
-using SimpleCloudMonolithic.Domain.Entities;
-using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
+﻿//using SimpleCloudMonolithic.Application.Common.Exceptions;
+//using SimpleCloudMonolithic.Application.Common.Interfaces;
+//using SimpleCloudMonolithic.Domain.Entities;
+//using MediatR;
+//using System.Threading;
+//using System.Threading.Tasks;
 
-namespace SimpleCloudMonolithic.Application.TodoLists.Commands.UpdateTodoList
-{
-    public class UpdateTodoListCommand : IRequest
-    {
-        public int Id { get; set; }
+//namespace SimpleCloudMonolithic.Application.TodoLists.Commands.UpdateTodoList
+//{
+//    public class UpdateTodoListCommand : IRequest
+//    {
+//        public int Id { get; set; }
 
-        public string Title { get; set; }
-    }
+//        public string Title { get; set; }
+//    }
 
-    public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>
-    {
-        private readonly IApplicationDbContext _context;
+//    public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListCommand>
+//    {
+//        private readonly IApplicationDbContext _context;
 
-        public UpdateTodoListCommandHandler(IApplicationDbContext context)
-        {
-            _context = context;
-        }
+//        public UpdateTodoListCommandHandler(IApplicationDbContext context)
+//        {
+//            _context = context;
+//        }
 
-        public async Task<Unit> Handle(UpdateTodoListCommand request, CancellationToken cancellationToken)
-        {
-            var entity = await _context.TodoLists.FindAsync(request.Id);
+//        public async Task<Unit> Handle(UpdateTodoListCommand request, CancellationToken cancellationToken)
+//        {
+//            var entity = await _context.TodoLists.FindAsync(request.Id);
 
-            if (entity == null)
-            {
-                throw new NotFoundException(nameof(TodoList), request.Id);
-            }
+//            if (entity == null)
+//            {
+//                throw new NotFoundException(nameof(TodoList), request.Id);
+//            }
 
-            entity.Title = request.Title;
+//            entity.Title = request.Title;
 
-            await _context.SaveChangesAsync(cancellationToken);
+//            await _context.SaveChangesAsync(cancellationToken);
 
-            return Unit.Value;
-        }
-    }
-}
+//            return Unit.Value;
+//        }
+//    }
+//}

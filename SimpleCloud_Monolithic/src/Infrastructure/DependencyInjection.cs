@@ -18,7 +18,7 @@ namespace SimpleCloudMonolithic.Infrastructure
             if (configuration.GetValue<bool>("UseInMemoryDatabase"))
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseInMemoryDatabase("ca_slnDb"));
+                    options.UseInMemoryDatabase("SimpleCloud_MonolithicDb"));
             }
             else
             {

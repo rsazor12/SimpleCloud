@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace SimpleCloudMonolithic.WebUI
 {
@@ -58,7 +59,7 @@ namespace SimpleCloudMonolithic.WebUI
 
             services.AddOpenApiDocument(configure =>
             {
-                configure.Title = "ca_sln API";
+                configure.Title = "SimpleCloud_Monolithic API";
                 configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
                 {
                     Type = OpenApiSecuritySchemeType.ApiKey,
@@ -72,8 +73,15 @@ namespace SimpleCloudMonolithic.WebUI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            //public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+            //{
+                //loggerFactory..AddConsole(Configuration.GetSection("Logging"));
+                //loggerFactory.AddDebug();
+                //removed the rest of the lines
+            //}
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

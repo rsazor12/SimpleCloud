@@ -30,7 +30,7 @@ namespace SimpleCloudMonolithic.Application.Common.Behaviours
                 userName = await _identityService.GetUserNameAsync(userId);
             }
 
-            _logger.LogInformation("ca_sln Request: {Name} {@UserId} {@UserName} {@Request}",
+            _logger.LogInformation("SimpleCloud_Monolithic Request: {Name} {@UserId} {@UserName} {@Request}",
                 requestName, userId, userName, request);
         }
     }

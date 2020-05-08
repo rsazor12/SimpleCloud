@@ -11,14 +11,21 @@ using System.Data;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using SimpleCloud_Monolithic.Domain.Entities;
 
 namespace SimpleCloudMonolithic.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
+    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>,  IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
         private IDbContextTransaction _currentTransaction;
+
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<OrderedMLService> OrderedServices { get; set; }
+        public DbSet<ServiceDetails> ServiceDetails { get; set; }
+        public DbSet<ServiceTask> ServiceTasks { get; set; }
+        public DbSet<File> Files { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options,
@@ -30,9 +37,9 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence
             _dateTime = dateTime;
         }
 
-        public DbSet<TodoList> TodoLists { get; set; }
+        //public DbSet<TodoList> TodoLists { get; set; }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+        //public DbSet<TodoItem> TodoItems { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WeatherForecastClient, WeatherForecast } from "../ca_sln-api";
+import { WeatherForecastClient, WeatherForecast } from "../SimpleCloud_Monolithic-api";
 
 @Component({
   selector: 'app-fetch-data',

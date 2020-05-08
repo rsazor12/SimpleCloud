@@ -38,7 +38,7 @@ public class Testing
 
         services.AddSingleton(Mock.Of<IWebHostEnvironment>(w =>
             w.EnvironmentName == "Development" &&
-            w.ApplicationName == "ca_sln.WebUI"));
+            w.ApplicationName == "SimpleCloud_Monolithic.WebUI"));
 
         services.AddLogging();
 

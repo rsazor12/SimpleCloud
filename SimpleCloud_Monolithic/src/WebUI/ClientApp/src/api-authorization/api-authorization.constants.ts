@@ -1,4 +1,4 @@
-export const ApplicationName = 'ca_sln.WebUI';
+export const ApplicationName = 'SimpleCloud_Monolithic.WebUI';
 
 export const ReturnUrlType = 'returnUrl';
 
