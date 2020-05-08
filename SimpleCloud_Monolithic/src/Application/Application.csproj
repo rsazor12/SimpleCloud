@@ -25,7 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Common\Mappings\" />
-    <Folder Include="MachineLearning\Queries\" />
+    <Folder Include="MLService\Queries\" />
   </ItemGroup>
 
 </Project>
