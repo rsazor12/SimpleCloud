@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "17f1a6c5-70f4-4324-9e49-57caad857b4c",
+		"name": "SimpleCloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MLServices",
+			"item": []
+		},
+		{
+			"name": "OrderMLService",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"serviceName\": \"testName\",\n\t\"clientId\": \"{{clientId}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/mlservices",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"mlservices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadLearningFiles",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/0.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/0.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/1.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/1.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/2.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/2.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/3.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/3.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/4.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/4.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/5.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/5.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/6.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/6.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/7.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/7.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/8.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/8.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/9.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/9.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/10.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/10.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/11.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/11.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/12.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/12.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/13.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/13.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/14.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/14.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/15.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/15.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/16.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/16.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/17.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/17.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/18.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/18.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/19.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/19.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/20.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/20.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/21.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/21.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/22.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/22.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/23.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/23.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/24.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/train/24.sick.jpg"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/api/mlservices/{{mlServiceId}}/learning/files",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"mlservices",
+						"{{mlServiceId}}",
+						"learning",
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PerformLearning",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/mlservices/{{mlServiceId}}/learning",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"mlservices",
+						"{{mlServiceId}}",
+						"learning"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadPredictionFiles",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "files",
+							"type": "file",
+							"src": [
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/275.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/275.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/276.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/276.sick.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/277.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/278.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/279.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/280.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/281.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/282.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/283.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/284.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/285.healthy.jpg",
+								"/D:/STUDIA/PRACA MAGISTERSKA/ExampleProblem/data/test/286.healthy.jpg"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/api/mlservices/{{mlServiceId}}/prediction/files",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"mlservices",
+						"{{mlServiceId}}",
+						"prediction",
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MakePrediction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{host}}/api/mlservices/{{mlServiceId}}/prediction",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"mlservices",
+						"{{mlServiceId}}",
+						"prediction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateMLService",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"OrderedServiceId\": \"{{mlServiceId}}\",\n\t\"serviceName\": \"testNameNew\",\n\t\"clientId\": \"{{clientId}}\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/api/mlservices",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"mlservices"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
