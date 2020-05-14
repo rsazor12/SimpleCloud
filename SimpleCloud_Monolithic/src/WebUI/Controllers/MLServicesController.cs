@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SimpleCloudMonolithic.Application.MachineLearning.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
-using SimpleCloud_Monolithic.Application.MLServiceCommands.UploadLearningFiles;
 using System.IO;
-using SimpleCloud_Monolithic.Application.MLServiceCommands.CreateLearningService;
-using SimpleCloud_Monolithic.Application.MLServiceCommands.UpdateMLService;
+using System;
+using SimpleCloud_Monolithic.Application.MLServices.Commands;
+using SimpleCloud_Monolithic.Application.MLServices.Commands.CreateLearningService;
+using SimpleCloud_Monolithic.Application.MLServices.Commands.UpdateMLService;
+using SimpleCloud_Monolithic.Application.MLServices.Commands.UploadLearningFiles;
+using SimpleCloud_Monolithic.Application.MLServices.Commands.UploadPredictionFiles;
 
 namespace SimpleCloudMonolithic.WebUI.Controllers
 {
@@ -17,12 +17,6 @@ namespace SimpleCloudMonolithic.WebUI.Controllers
     [ApiController]
     public class MLServicesController : ApiController
     {
-        private IWebHostEnvironment hostingEnvironment;
-
-        public MLServicesController(IWebHostEnvironment hostingEnvironment)
-        {
-            this.hostingEnvironment = hostingEnvironment;
-        }
 
         [HttpPost]
         public async Task<ActionResult<int>> OrderMLService(OrderMLServiceCommand command)
@@ -36,28 +30,32 @@ namespace SimpleCloudMonolithic.WebUI.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpPost("learning")]
-        public async Task<ActionResult<int>> PerformLearning()
+        [HttpPost("{mlServiceId}/learning")]
+        public async Task<ActionResult<int>> PerformLearning(Guid mlServiceId)
         {
-            var command = new PerformLearningCommand();
+            var command = new PerformLearningCommand() { MLServiceId = mlServiceId};
             return Ok(await Mediator.Send(command));
         }
 
-
-        [HttpPost("learining/files")]
-        public async Task<ActionResult> UploadLearningFiles([FromForm] IEnumerable<IFormFile> learningFiles)
+        [HttpPost("{mlServiceId}/learning/files")]
+        public async Task<ActionResult> UploadLearningFiles(Guid mlServiceId, [FromForm]IFormFileCollection files)
         {
-            foreach(IFormFile learningFile in learningFiles)
-            {
-                string fName = learningFile.FileName;
-                string path = Path.Combine(hostingEnvironment.ContentRootPath, "Images/" + learningFile.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await learningFile.CopyToAsync(stream);
-                }
-            }
+            var command = new UploadLearningFilesCommand() { MLServiceId = mlServiceId, files = files };
+            return Ok(await Mediator.Send(command));
+        }
 
-            return Ok();
+        [HttpPost("{mlServiceId}/prediction")]
+        public async Task<ActionResult> MakePrediction(Guid mlServiceId)
+        {
+            var command = new MakePredictionCommand() { MLServiceId = mlServiceId};
+            return Ok(await Mediator.Send(command));
+        }
+
+        [HttpPost("{mlServiceId}/prediction/files")]
+        public async Task<ActionResult> UploadPredictionFiles(Guid mlServiceId, [FromForm]IFormFileCollection files)
+        {
+            var command = new UploadPredictionFilesCommand() { MLServiceId = mlServiceId, files = files };
+            return Ok(await Mediator.Send(command));
         }
     }
 }

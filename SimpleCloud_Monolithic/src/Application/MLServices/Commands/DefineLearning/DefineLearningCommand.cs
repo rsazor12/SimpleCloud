@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SimpleCloud_Monolithic.Application.MLService.Commands.DefineLearning
+namespace SimpleCloud_Monolithic.Application.MLServices.Commands.DefineLearning
 {
     public class DefineLearningCommand : IRequest
     {
@@ -35,9 +35,9 @@ namespace SimpleCloud_Monolithic.Application.MLService.Commands.DefineLearning
 
         public async Task<Unit> Handle(DefineLearningCommand request, CancellationToken cancellationToken)
         {
-            var orderedService = 
-                _dbContext.OrderedServices.SingleOrDefault(orderedService => orderedService.Id == request.OrderedServiceId)
-                ?? throw new NotFoundException(nameof(OrderedMLService), request.OrderedServiceId);
+            var orderedService =
+                _dbContext.MLServices.SingleOrDefault(orderedService => orderedService.Id == request.OrderedServiceId)
+                ?? throw new NotFoundException(nameof(Domain.Entities.MLService), request.OrderedServiceId);
 
             var serviceDetails = new ServiceDetails();
 
@@ -45,7 +45,7 @@ namespace SimpleCloud_Monolithic.Application.MLService.Commands.DefineLearning
 
             orderedService.UpdateServiceDetails(serviceDetails);
 
-            _dbContext.OrderedServices.Update(orderedService);
+            _dbContext.MLServices.Update(orderedService);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

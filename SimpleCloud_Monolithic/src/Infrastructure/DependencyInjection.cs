@@ -5,34 +5,30 @@ using SimpleCloudMonolithic.Infrastructure.Persistence;
 using SimpleCloudMonolithic.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ModelBuilder = SimpleCloudMonolithic.Infrastructure.Services.ModelBuilder;
+using SimpleCloud_Monolithic.Application.Common.Configurations;
 
 namespace SimpleCloudMonolithic.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        // public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration, IOptions<AppSettings> appSettings)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, AppSettings appSettings)
         {
-            if (configuration.GetValue<bool>("UseInMemoryDatabase"))
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseInMemoryDatabase("SimpleCloud_MonolithicDb"));
-            }
-            else
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(
-                        configuration.GetConnectionString("DefaultConnection"),
-                        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
-            }
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    // configuration.GetConnectionString("DefaultConnection"),
+                    appSettings.ConnectionStrings.DefaultConnection,
+                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
-                services.AddDefaultIdentity<ApplicationUser>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
-            
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 

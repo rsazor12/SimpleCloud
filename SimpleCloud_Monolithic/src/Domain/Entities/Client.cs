@@ -7,7 +7,9 @@ namespace SimpleCloud_Monolithic.Domain.Entities
 {
     public class Client: Entity
     {
-        public string Email { get; set; }
+        public string Email { get; private set; }
+
+        public MLService MLService { get; private set; }
 
         public Client()
         {

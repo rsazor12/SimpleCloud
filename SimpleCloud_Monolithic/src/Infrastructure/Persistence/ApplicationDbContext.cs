@@ -12,6 +12,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using SimpleCloud_Monolithic.Domain.Entities;
+using System.Diagnostics;
+using Tensorflow.Eager;
 
 namespace SimpleCloudMonolithic.Infrastructure.Persistence
 {
@@ -22,7 +24,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence
         private IDbContextTransaction _currentTransaction;
 
         public DbSet<Client> Clients { get; set; }
-        public DbSet<OrderedMLService> OrderedServices { get; set; }
+        public DbSet<MLService> MLServices { get; set; }
         public DbSet<ServiceDetails> ServiceDetails { get; set; }
         public DbSet<ServiceTask> ServiceTasks { get; set; }
         public DbSet<File> Files { get; set; }
@@ -35,6 +37,9 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence
         {
             _currentUserService = currentUserService;
             _dateTime = dateTime;
+
+            // Context.
+            // ChangeTracker.LazyLoadingEnabled = false;
         }
 
         //public DbSet<TodoList> TodoLists { get; set; }
@@ -108,6 +113,32 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence
                     _currentTransaction = null;
                 }
             }
+        }
+
+        public void Upsert(object entity)
+        {
+            ChangeTracker.TrackGraph(entity, e =>
+            {
+                if (e.Entry.IsKeySet)
+                {
+                    e.Entry.State = EntityState.Modified;
+                }
+                else
+                {
+                    e.Entry.State = EntityState.Added;
+                }
+            });
+
+            //context.Entry(employee.Address).State = EntityState.Detached;
+            //employee.SetAddress(newAddress);
+            //context.Entry(employee.Address).State = EntityState.Modified;
+
+#if DEBUG
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                Debug.WriteLine($"Entity: {entry.Entity.GetType().Name} State: {entry.State.ToString()}");
+            }
+#endif
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

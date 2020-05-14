@@ -70,12 +70,24 @@
         }
       }
     },
-    "/api/MLServices/learning": {
+    "/api/MLServices/{mlServiceId}/learning": {
       "post": {
         "tags": [
           "MLServices"
         ],
         "operationId": "MLServices_PerformLearning",
+        "parameters": [
+          {
+            "name": "mlServiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -91,7 +103,7 @@
         }
       }
     },
-    "/api/MLServices/learining/files": {
+    "/api/MLServices/{mlServiceId}/learning/files": {
       "post": {
         "tags": [
           "MLServices"
@@ -99,7 +111,17 @@
         "operationId": "MLServices_UploadLearningFiles",
         "parameters": [
           {
-            "name": "learningFiles",
+            "name": "mlServiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "files",
             "in": "formData",
             "style": "form",
             "explode": true,
@@ -111,7 +133,88 @@
                 "format": "binary"
               }
             },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MLServices/{mlServiceId}/prediction": {
+      "post": {
+        "tags": [
+          "MLServices"
+        ],
+        "operationId": "MLServices_MakePrediction",
+        "parameters": [
+          {
+            "name": "mlServiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
             "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MLServices/{mlServiceId}/prediction/files": {
+      "post": {
+        "tags": [
+          "MLServices"
+        ],
+        "operationId": "MLServices_UploadPredictionFiles",
+        "parameters": [
+          {
+            "name": "mlServiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "guid"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "files",
+            "in": "formData",
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "array",
+              "nullable": true,
+              "items": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "x-position": 2
           }
         ],
         "responses": {

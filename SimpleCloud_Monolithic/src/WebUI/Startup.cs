@@ -15,23 +15,35 @@ using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using SimpleCloud_Monolithic.Application.Common.Configurations;
+using System;
 
 namespace SimpleCloudMonolithic.WebUI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(
+            IConfiguration configuration
+            )
         {
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
-
+    
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
+
+            {
+                var appSettings = new AppSettings();
+                Configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
+
+                services.AddInfrastructure(appSettings);
+            }
+
             services.AddApplication();
-            services.AddInfrastructure(Configuration);
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
 

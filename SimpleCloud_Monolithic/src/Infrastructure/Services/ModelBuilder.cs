@@ -1,11 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Vision;
+using SimpleCloud_Monolithic.Application.Models;
 using SimpleCloudMonolithic.Application.Common.Interfaces;
 using SimpleCloudMonolithic.Application.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,15 +33,10 @@ namespace SimpleCloudMonolithic.Infrastructure.Services
         }
 
 
-        (MLContext, ITransformer, DataViewSchema) IModelBuilder.CreateModel(string trainDataFilePath)
+        (MLContext, ITransformer, DataViewSchema) IModelBuilder.CreateModel(IEnumerable<ModelInput> modelInput)
         {
-        // Load Data
-        IDataView trainingDataView = mlContext.Data.LoadFromTextFile<ModelInput>(
-                                            path: trainDataFilePath,
-                                            hasHeader: true,
-                                            separatorChar: '\t',
-                                            allowQuoting: true,
-                                            allowSparse: false);
+            // Load Data
+            IDataView trainingDataView = mlContext.Data.LoadFromEnumerable(modelInput);
 
             // Build training pipeline
             IEstimator<ITransformer> trainingPipeline = BuildTrainingPipeline(mlContext);
@@ -51,18 +49,74 @@ namespace SimpleCloudMonolithic.Infrastructure.Services
 
 
             return (mlContext, mlModel, trainingDataView.Schema);
-            // Save model
-            //SaveModel(mlContext, mlModel, MODEL_FILEPATH, trainingDataView.Schema);
         }
 
-        public ITransformer TrainModel(MLContext mlContext, IDataView trainingDataView, IEstimator<ITransformer> trainingPipeline)
+        public void SaveModel(
+            MLContext mlContext,
+            ITransformer mlModel,
+            string modelRelativePath,
+            DataViewSchema modelInputSchema
+        )
         {
-            _logger.LogInformation("=============== Training  model ===============");
-            mlContext.Log += LogMLEvent;
-            ITransformer model = trainingPipeline.Fit(trainingDataView);
+            // Save/persist the trained model to a .ZIP file
+            Console.WriteLine($"=============== Saving the model  ===============");
+            mlContext.Model.Save(mlModel, modelInputSchema, GetAbsolutePath(modelRelativePath));
+            Console.WriteLine("The model is saved to {0}", GetAbsolutePath(modelRelativePath));
+        }
 
-            _logger.LogInformation("=============== End of training process ===============");
-            return model;
+        public IEnumerable<ModelOutput> Predict(string modelPath, IEnumerable<ModelInput> predictionItems)
+        {
+            //Create MLContext
+            MLContext mlContext = new MLContext();
+
+            // Load Trained Model
+            DataViewSchema predictionPipelineSchema;
+            ITransformer predictionPipeline = mlContext.Model.Load(modelPath, out predictionPipelineSchema);
+
+            // Create PredictionEngines
+            //var predictionEngine
+            //    = mlContext.Model.CreatePredictionEngine<List<ModelInput>, List<ModelOutput>>(predictionPipeline);
+
+            IDataView items = mlContext.Data.LoadFromEnumerable(predictionItems);
+
+            IDataView predictions = predictionPipeline.Transform(items);
+
+            var scoreColumn = predictions.GetColumn<float[]>("Score");
+
+
+            // Create an IEnumerable of HousingData objects from IDataView
+            IEnumerable<ModelOutput> output =
+                mlContext.Data.CreateEnumerable<ModelOutput>(predictions, reuseRowObject: true);
+
+            // Iterate over each row
+            foreach (var row in output)
+            {
+                // Do something (print out Size property) with current Housing Data object being evaluated
+                Console.WriteLine(row.Prediction);
+            }
+
+
+
+            // var cursor = predictions.GetRowCursor(predictions.Schema);
+
+            //for (int i=0; i < predictions.GetRowCount(); i++)
+            // {
+            //     var item = cursor.
+            //     //DataRow row = rowView.Row;
+            //     // Do something //
+            // }
+
+            //// Create new MLContext
+            //MLContext mlContext = new MLContext();
+
+            //// Load model & create prediction engine
+            //// string modelPath = @"C:\Users\Y520\AppData\Local\Temp\MLVSTools\ML_DOTNET_IMAGE_CLASSIFICATIONML\ML_DOTNET_IMAGE_CLASSIFICATIONML.Model\MLModel.zip";
+            //ITransformer mlModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
+            //var predEngine = mlContext.Model.CreatePredictionEngine<List<ModelInput>, List<ModelOutput>>(mlModel);
+
+            //// Use model to make prediction on input data
+            //ModelOutput result = predEngine.Predict(items.ToList());
+            return output;
         }
 
         private IEstimator<ITransformer> BuildTrainingPipeline(MLContext mlContext)
@@ -80,6 +134,16 @@ namespace SimpleCloudMonolithic.Infrastructure.Services
             return trainingPipeline;
         }
 
+        private ITransformer TrainModel(MLContext mlContext, IDataView trainingDataView, IEstimator<ITransformer> trainingPipeline)
+        {
+            _logger.LogInformation("=============== Training  model ===============");
+            mlContext.Log += LogMLEvent;
+            ITransformer model = trainingPipeline.Fit(trainingDataView);
+
+            _logger.LogInformation("=============== End of training process ===============");
+            return model;
+        }
+
         private void Evaluate(MLContext mlContext, IDataView trainingDataView, IEstimator<ITransformer> trainingPipeline)
         {
             // Cross-Validate with single dataset (since we don't have two datasets, one for training and for evaluate)
@@ -94,19 +158,6 @@ namespace SimpleCloudMonolithic.Infrastructure.Services
         private void LogMLEvent(object sender, Microsoft.ML.LoggingEventArgs e)
         {
             _logger.LogInformation(e.Message);
-        }
-
-        public void SaveModel(
-            MLContext mlContext,
-            ITransformer mlModel,
-            string modelRelativePath,
-            DataViewSchema modelInputSchema
-            )
-        {
-            // Save/persist the trained model to a .ZIP file
-            Console.WriteLine($"=============== Saving the model  ===============");
-            mlContext.Model.Save(mlModel, modelInputSchema, GetAbsolutePath(modelRelativePath));
-            Console.WriteLine("The model is saved to {0}", GetAbsolutePath(modelRelativePath));
         }
 
         private string GetAbsolutePath(string relativePath)
@@ -182,6 +233,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Services
             double confidenceInterval95 = 1.96 * CalculateStandardDeviation(values) / Math.Sqrt((values.Count() - 1));
             return confidenceInterval95;
         }
+
 
     }
 }

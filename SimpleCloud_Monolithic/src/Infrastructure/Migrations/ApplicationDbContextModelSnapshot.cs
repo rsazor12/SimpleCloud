@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleCloudMonolithic.Infrastructure.Persistence;
 
-namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
+namespace SimpleCloud_Monolithic.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200508102451_AddDomainEntities")]
-    partial class AddDomainEntities
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -412,16 +410,16 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                     b.ToTable("Files");
                 });
 
-            modelBuilder.Entity("SimpleCloud_Monolithic.Domain.Entities.OrderedService", b =>
+            modelBuilder.Entity("SimpleCloud_Monolithic.Domain.Entities.MLService", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ClientId")
+                    b.Property<Guid>("ClientId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ServiceDetailsId")
+                    b.Property<Guid>("ServiceDetailsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ServiceName")
@@ -429,11 +427,13 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
+                    b.HasIndex("ClientId")
+                        .IsUnique();
 
-                    b.HasIndex("ServiceDetailsId");
+                    b.HasIndex("ServiceDetailsId")
+                        .IsUnique();
 
-                    b.ToTable("OrderedServices");
+                    b.ToTable("MLServices");
                 });
 
             modelBuilder.Entity("SimpleCloud_Monolithic.Domain.Entities.ServiceDetails", b =>
@@ -547,15 +547,19 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SimpleCloud_Monolithic.Domain.Entities.OrderedService", b =>
+            modelBuilder.Entity("SimpleCloud_Monolithic.Domain.Entities.MLService", b =>
                 {
                     b.HasOne("SimpleCloud_Monolithic.Domain.Entities.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId");
+                        .WithOne("MLService")
+                        .HasForeignKey("SimpleCloud_Monolithic.Domain.Entities.MLService", "ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SimpleCloud_Monolithic.Domain.Entities.ServiceDetails", "ServiceDetails")
-                        .WithMany()
-                        .HasForeignKey("ServiceDetailsId");
+                        .WithOne("MLService")
+                        .HasForeignKey("SimpleCloud_Monolithic.Domain.Entities.MLService", "ServiceDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SimpleCloud_Monolithic.Domain.Entities.ServiceTask", b =>

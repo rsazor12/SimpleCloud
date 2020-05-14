@@ -17,8 +17,10 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 export interface IMLServicesClient {
     orderMLService(command: OrderMLServiceCommand): Observable<number>;
     updateMLService(command: UpdateMLServiceCommand): Observable<number>;
-    performLearning(): Observable<number>;
-    uploadLearningFiles(learningFiles: string[] | null | undefined): Observable<FileResponse>;
+    performLearning(mlServiceId: string): Observable<number>;
+    uploadLearningFiles(mlServiceId: string, files: string[] | null | undefined): Observable<FileResponse>;
+    makePrediction(mlServiceId: string): Observable<FileResponse>;
+    uploadPredictionFiles(mlServiceId: string, files: string[] | null | undefined): Observable<FileResponse>;
 }
 
 @Injectable({
@@ -138,8 +140,11 @@ export class MLServicesClient implements IMLServicesClient {
         return _observableOf<number>(<any>null);
     }
 
-    performLearning(): Observable<number> {
-        let url_ = this.baseUrl + "/api/MLServices/learning";
+    performLearning(mlServiceId: string): Observable<number> {
+        let url_ = this.baseUrl + "/api/MLServices/{mlServiceId}/learning";
+        if (mlServiceId === undefined || mlServiceId === null)
+            throw new Error("The parameter 'mlServiceId' must be defined.");
+        url_ = url_.replace("{mlServiceId}", encodeURIComponent("" + mlServiceId)); 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -186,13 +191,16 @@ export class MLServicesClient implements IMLServicesClient {
         return _observableOf<number>(<any>null);
     }
 
-    uploadLearningFiles(learningFiles: string[] | null | undefined): Observable<FileResponse> {
-        let url_ = this.baseUrl + "/api/MLServices/learining/files";
+    uploadLearningFiles(mlServiceId: string, files: string[] | null | undefined): Observable<FileResponse> {
+        let url_ = this.baseUrl + "/api/MLServices/{mlServiceId}/learning/files";
+        if (mlServiceId === undefined || mlServiceId === null)
+            throw new Error("The parameter 'mlServiceId' must be defined.");
+        url_ = url_.replace("{mlServiceId}", encodeURIComponent("" + mlServiceId)); 
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (learningFiles !== null && learningFiles !== undefined)
-            content_.append("learningFiles", learningFiles.toString());
+        if (files !== null && files !== undefined)
+            content_.append("files", files.toString());
 
         let options_ : any = {
             body: content_,
@@ -218,6 +226,109 @@ export class MLServicesClient implements IMLServicesClient {
     }
 
     protected processUploadLearningFiles(response: HttpResponseBase): Observable<FileResponse> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileResponse>(<any>null);
+    }
+
+    makePrediction(mlServiceId: string): Observable<FileResponse> {
+        let url_ = this.baseUrl + "/api/MLServices/{mlServiceId}/prediction";
+        if (mlServiceId === undefined || mlServiceId === null)
+            throw new Error("The parameter 'mlServiceId' must be defined.");
+        url_ = url_.replace("{mlServiceId}", encodeURIComponent("" + mlServiceId)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "application/octet-stream"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processMakePrediction(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processMakePrediction(<any>response_);
+                } catch (e) {
+                    return <Observable<FileResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processMakePrediction(response: HttpResponseBase): Observable<FileResponse> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200 || status === 206) {
+            const contentDisposition = response.headers ? response.headers.get("content-disposition") : undefined;
+            const fileNameMatch = contentDisposition ? /filename="?([^"]*?)"?(;|$)/g.exec(contentDisposition) : undefined;
+            const fileName = fileNameMatch && fileNameMatch.length > 1 ? fileNameMatch[1] : undefined;
+            return _observableOf({ fileName: fileName, data: <any>responseBlob, status: status, headers: _headers });
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileResponse>(<any>null);
+    }
+
+    uploadPredictionFiles(mlServiceId: string, files: string[] | null | undefined): Observable<FileResponse> {
+        let url_ = this.baseUrl + "/api/MLServices/{mlServiceId}/prediction/files";
+        if (mlServiceId === undefined || mlServiceId === null)
+            throw new Error("The parameter 'mlServiceId' must be defined.");
+        url_ = url_.replace("{mlServiceId}", encodeURIComponent("" + mlServiceId)); 
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = new FormData();
+        if (files !== null && files !== undefined)
+            content_.append("files", files.toString());
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",			
+            headers: new HttpHeaders({
+                "Accept": "application/octet-stream"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUploadPredictionFiles(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUploadPredictionFiles(<any>response_);
+                } catch (e) {
+                    return <Observable<FileResponse>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileResponse>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUploadPredictionFiles(response: HttpResponseBase): Observable<FileResponse> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 

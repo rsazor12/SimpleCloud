@@ -1,16 +1,11 @@
-﻿using SimpleCloud_Monolithic.Domain.Entities;
-using MediatR;
-using SimpleCloudMonolithic.Application.Common.Exceptions;
+﻿using MediatR;
+using SimpleCloud_Monolithic.Domain.Entities;
 using SimpleCloudMonolithic.Application.Common.Interfaces;
-using SimpleCloudMonolithic.Application.MachineLearning.Commands;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SimpleCloud_Monolithic.Application.MLService.Commands.CreateLearningService
+namespace SimpleCloud_Monolithic.Application.MLServices.Commands.CreateLearningService
 {
     public class OrderMLServiceCommand : IRequest<Guid>
     {
@@ -32,9 +27,13 @@ namespace SimpleCloud_Monolithic.Application.MLService.Commands.CreateLearningSe
             //    _dbContext.Clients.SingleOrDefault(client => client.Id == request.CliendId)
             //    ?? throw new NotFoundException(nameof(Client), request.CliendId);
 
-            var orderedService = new OrderedMLService(request.ServiceName, null, null);
+            var orderedService = new Domain.Entities.MLService();
 
-            _dbContext.OrderedServices.Add(orderedService);
+            orderedService.UpdateServiceName(request.ServiceName);
+            orderedService.UpdateServiceDetails(new ServiceDetails());
+            orderedService.AssignClient(new Client());
+
+            _dbContext.MLServices.Add(orderedService);
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 

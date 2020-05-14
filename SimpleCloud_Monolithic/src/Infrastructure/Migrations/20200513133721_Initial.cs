@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
+namespace SimpleCloud_Monolithic.Infrastructure.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,6 +47,18 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Email = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DeviceCodes",
                 columns: table => new
                 {
@@ -61,6 +73,19 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DeviceCodes", x => x.UserCode);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Files",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Path = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Files", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,7 +106,24 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TodoLists",
+                name: "ServiceDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    TrainDataPath = table.Column<string>(nullable: true),
+                    TestDataPath = table.Column<string>(nullable: true),
+                    ModelPath = table.Column<string>(nullable: true),
+                    Epochs = table.Column<int>(nullable: false),
+                    BatchSize = table.Column<int>(nullable: false),
+                    LearningRate = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceDetails", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TodoList",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -95,7 +137,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoLists", x => x.Id);
+                    table.PrimaryKey("PK_TodoList", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -205,7 +247,53 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TodoItems",
+                name: "MLServices",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ServiceName = table.Column<string>(nullable: true),
+                    ClientId = table.Column<Guid>(nullable: true),
+                    ServiceDetailsId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MLServices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MLServices_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MLServices_ServiceDetails_ServiceDetailsId",
+                        column: x => x.ServiceDetailsId,
+                        principalTable: "ServiceDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceTasks",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    ServiceDetailsId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceTasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ServiceTasks_ServiceDetails_ServiceDetailsId",
+                        column: x => x.ServiceDetailsId,
+                        principalTable: "ServiceDetails",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TodoItem",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -223,11 +311,11 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoItems", x => x.Id);
+                    table.PrimaryKey("PK_TodoItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TodoItems_TodoLists_ListId",
+                        name: "FK_TodoItem_TodoList_ListId",
                         column: x => x.ListId,
-                        principalTable: "TodoLists",
+                        principalTable: "TodoList",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -283,6 +371,17 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MLServices_ClientId",
+                table: "MLServices",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MLServices_ServiceDetailsId",
+                table: "MLServices",
+                column: "ServiceDetailsId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PersistedGrants_Expiration",
                 table: "PersistedGrants",
                 column: "Expiration");
@@ -293,8 +392,13 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 columns: new[] { "SubjectId", "ClientId", "Type" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TodoItems_ListId",
-                table: "TodoItems",
+                name: "IX_ServiceTasks_ServiceDetailsId",
+                table: "ServiceTasks",
+                column: "ServiceDetailsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TodoItem_ListId",
+                table: "TodoItem",
                 column: "ListId");
         }
 
@@ -319,10 +423,19 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
+                name: "Files");
+
+            migrationBuilder.DropTable(
+                name: "MLServices");
+
+            migrationBuilder.DropTable(
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
-                name: "TodoItems");
+                name: "ServiceTasks");
+
+            migrationBuilder.DropTable(
+                name: "TodoItem");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -331,7 +444,13 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "TodoLists");
+                name: "Clients");
+
+            migrationBuilder.DropTable(
+                name: "ServiceDetails");
+
+            migrationBuilder.DropTable(
+                name: "TodoList");
         }
     }
 }

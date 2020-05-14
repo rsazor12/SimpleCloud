@@ -13,12 +13,14 @@ namespace SimpleCloudMonolithic.Application.Common.Interfaces
         //DbSet<TodoItem> TodoItems { get; set; }
 
         DbSet<Client> Clients { get; set; }
-        DbSet<OrderedMLService> OrderedServices { get; set; }
+        DbSet<MLService> MLServices { get; set; }
         DbSet<ServiceDetails> ServiceDetails { get; set; }
         DbSet<ServiceTask> ServiceTasks { get; set; }
         DbSet<File> Files { get; set; }
 
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
+        void Upsert(object entity);
     }
 }
