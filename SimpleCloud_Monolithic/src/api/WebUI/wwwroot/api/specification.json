@@ -1,8 +1,8 @@
 ﻿{
-  "x-generator": "NSwag v13.3.0.0 (NJsonSchema v10.1.11.0 (Newtonsoft.Json v12.0.0.0))",
+  "x-generator": "NSwag v13.5.0.0 (NJsonSchema v10.1.15.0 (Newtonsoft.Json v12.0.0.0))",
   "openapi": "3.0.0",
   "info": {
-    "title": "SimpleCloud_Monolithic API",
+    "title": "My Title",
     "version": "1.0.0"
   },
   "paths": {
@@ -30,8 +30,70 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/CommandHandlerResponseOfGuid"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Clients"
+        ],
+        "operationId": "Clients_CreateClientz",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateClientCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommandHandlerResponseOfGuid"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Configurations/clearDatabase": {
+      "post": {
+        "tags": [
+          "Configurations"
+        ],
+        "operationId": "Configurations_ClearDatabase",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClearDatabaseCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -63,8 +125,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/CommandHandlerResponseOfGuid"
                 }
               }
             }
@@ -94,8 +155,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/CommandHandlerResponse"
                 }
               }
             }
@@ -127,8 +187,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/CommandHandlerResponse"
                 }
               }
             }
@@ -173,10 +232,9 @@
           "200": {
             "description": "",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "$ref": "#/components/schemas/CommandHandlerResponse"
                 }
               }
             }
@@ -206,10 +264,9 @@
           "200": {
             "description": "",
             "content": {
-              "application/octet-stream": {
+              "application/json": {
                 "schema": {
-                  "type": "string",
-                  "format": "binary"
+                  "$ref": "#/components/schemas/CommandHandlerResponseOfIEnumerableOfMakePredictionCommandVM"
                 }
               }
             }
@@ -291,6 +348,44 @@
   },
   "components": {
     "schemas": {
+      "CommandHandlerResponseOfGuid": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommandHandlerResponse"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "response": {
+                "type": "string",
+                "format": "guid"
+              }
+            }
+          }
+        ]
+      },
+      "CommandHandlerResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/HandlerResponse"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "HandlerResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "requestMiliseconds": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
       "CreateClientCommand": {
         "type": "object",
         "additionalProperties": false,
@@ -309,6 +404,10 @@
           }
         }
       },
+      "ClearDatabaseCommand": {
+        "type": "object",
+        "additionalProperties": false
+      },
       "CreateMLServiceCommand": {
         "type": "object",
         "additionalProperties": false,
@@ -317,7 +416,7 @@
             "type": "string",
             "nullable": true
           },
-          "cliendId": {
+          "clientId": {
             "type": "string",
             "format": "guid"
           }
@@ -338,6 +437,62 @@
           "cliendId": {
             "type": "string",
             "format": "guid"
+          }
+        }
+      },
+      "CommandHandlerResponseOfIEnumerableOfMakePredictionCommandVM": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CommandHandlerResponse"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "response": {
+                "type": "array",
+                "nullable": true,
+                "items": {
+                  "$ref": "#/components/schemas/MakePredictionCommandVM"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "MakePredictionCommandVM": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "modelOutputDTO": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ModelOutputDTO"
+              }
+            ]
+          }
+        }
+      },
+      "ModelOutputDTO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "prediction": {
+            "type": "string",
+            "nullable": true
+          },
+          "score": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "type": "number",
+              "format": "float"
+            }
           }
         }
       },
@@ -363,19 +518,6 @@
           }
         }
       }
-    },
-    "securitySchemes": {
-      "JWT": {
-        "type": "apiKey",
-        "description": "Type into the textbox: Bearer {your JWT token}.",
-        "name": "Authorization",
-        "in": "header"
-      }
     }
-  },
-  "security": [
-    {
-      "JWT": []
-    }
-  ]
+  }
 }

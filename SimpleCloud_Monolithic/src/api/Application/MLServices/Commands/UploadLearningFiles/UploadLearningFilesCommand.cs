@@ -15,17 +15,18 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using SimpleCloud_Monolithic.Application.Models.HandlerResponse;
 
 namespace SimpleCloud_Monolithic.Application.MLServices.Commands.UploadLearningFiles
 {
-    public class UploadLearningFilesCommand : IRequest
+    public class UploadLearningFilesCommand : IRequest<CommandHandlerResponse>
     {
         public Guid MLServiceId { get; set; }
 
         public IEnumerable<IFormFile> files { get; set; }
     }
 
-    public class UploadLearningFilesCommandHandler : IRequestHandler<UploadLearningFilesCommand>
+    public class UploadLearningFilesCommandHandler : IRequestHandler<UploadLearningFilesCommand, CommandHandlerResponse>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly AppSettings AppSettings;
@@ -42,7 +43,7 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands.UploadLearningF
         }
 
 
-        public async Task<Unit> Handle(UploadLearningFilesCommand request, CancellationToken cancellationToken)
+        public async Task<CommandHandlerResponse> Handle(UploadLearningFilesCommand request, CancellationToken cancellationToken)
         {
             var mlService = await _dbContext.MLServices
                 .Include(mlService => mlService.ServiceDetails)
@@ -79,7 +80,7 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands.UploadLearningF
             }
             
 
-            return Unit.Value;
+            return new CommandHandlerResponse();
         }
     }
 }

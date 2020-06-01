@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SimpleCloud_Monolithic.Application.Common.Configurations;
+using SimpleCloud_Monolithic.Application.Models.HandlerResponse;
 using SimpleCloud_Monolithic.Domain.Entities;
 using SimpleCloudMonolithic.Application.Common.Exceptions;
 using SimpleCloudMonolithic.Application.Common.Interfaces;
@@ -15,14 +16,14 @@ using System.Threading.Tasks;
 
 namespace SimpleCloud_Monolithic.Application.MLServices.Commands.UploadPredictionFiles
 {
-    public class UploadPredictionFilesCommand : IRequest
+    public class UploadPredictionFilesCommand : IRequest<CommandHandlerResponse>
     {
         public Guid MLServiceId { get; set; }
 
         public IEnumerable<IFormFile> files { get; set; }
     }
 
-    public class UploadPredictionFilesCommandHandler : IRequestHandler<UploadPredictionFilesCommand>
+    public class UploadPredictionFilesCommandHandler : IRequestHandler<UploadPredictionFilesCommand, CommandHandlerResponse>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly AppSettings AppSettings;
@@ -39,7 +40,7 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands.UploadPredictio
         }
 
 
-        public async Task<Unit> Handle(UploadPredictionFilesCommand request, CancellationToken cancellationToken)
+        public async Task<CommandHandlerResponse> Handle(UploadPredictionFilesCommand request, CancellationToken cancellationToken)
         {
             var mlService = await _dbContext.MLServices
                 .Include(mlService => mlService.ServiceDetails)
@@ -76,7 +77,7 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands.UploadPredictio
             }
 
 
-            return Unit.Value;
+            return new CommandHandlerResponse();
         }
     }
 }

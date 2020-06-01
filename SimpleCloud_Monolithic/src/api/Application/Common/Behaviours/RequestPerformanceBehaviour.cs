@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using SimpleCloud_Monolithic.Application.Models.HandlerResponse;
 using SimpleCloudMonolithic.Application.Common.Interfaces;
 using System.Diagnostics;
 using System.Threading;
@@ -36,20 +37,26 @@ namespace SimpleCloudMonolithic.Application.Common.Behaviours
 
             var elapsedMilliseconds = _timer.ElapsedMilliseconds;
 
-            if (elapsedMilliseconds > 500)
+            if(typeof(HandlerResponse).IsAssignableFrom(typeof(TResponse)))
             {
-                var requestName = typeof(TRequest).Name;
-                var userId = _currentUserService.UserId ?? string.Empty;
-                var userName = string.Empty;
+                (response as HandlerResponse).RequestMiliseconds = elapsedMilliseconds;
+            }    
 
-                if (!string.IsNullOrEmpty(userId))
-                {
-                    userName = await _identityService.GetUserNameAsync(userId);
-                }
 
-                _logger.LogWarning("SimpleCloud_Monolithic Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
-                    requestName, elapsedMilliseconds, userId, userName, request);
-            }
+            //if (elapsedMilliseconds > 500)
+            //{
+            //    var requestName = typeof(TRequest).Name;
+            //    var userId = _currentUserService.UserId ?? string.Empty;
+            //    var userName = string.Empty;
+
+            //    if (!string.IsNullOrEmpty(userId))
+            //    {
+            //        userName = await _identityService.GetUserNameAsync(userId);
+            //    }
+
+            //    _logger.LogWarning("SimpleCloud_Monolithic Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
+            //        requestName, elapsedMilliseconds, userId, userName, request);
+            //}
 
             return response;
         }

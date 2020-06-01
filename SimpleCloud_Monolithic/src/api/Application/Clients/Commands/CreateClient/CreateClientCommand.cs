@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SimpleCloud_Monolithic.Application.Common.Configurations;
 using SimpleCloud_Monolithic.Application.Common.Exceptions;
+using SimpleCloud_Monolithic.Application.Models.HandlerResponse;
 using SimpleCloud_Monolithic.Domain.Entities;
 using SimpleCloudMonolithic.Application.Common.Interfaces;
 using SimpleCloudMonolithic.Application.Common.Mappings;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SimpleCloud_Monolithic.Application.Clients.Commands.CreateClient
 {
-    public class CreateClientCommand : IRequest<Guid>, IMapFrom<Client>
+    public class CreateClientCommand : IRequest<CommandHandlerResponse<Guid>>, IMapFrom<Client>
     {
         public string Email { get; set; }
         public string Name { get; set; }
@@ -25,7 +25,7 @@ namespace SimpleCloud_Monolithic.Application.Clients.Commands.CreateClient
         }
     }
 
-    public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, Guid>
+    public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, CommandHandlerResponse<Guid>>
     {
         private readonly IApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -39,7 +39,7 @@ namespace SimpleCloud_Monolithic.Application.Clients.Commands.CreateClient
             _mapper = mapper;
         }
 
-        public async Task<Guid> Handle(CreateClientCommand request, CancellationToken cancellationToken)
+        public async Task<CommandHandlerResponse<Guid>> Handle(CreateClientCommand request, CancellationToken cancellationToken)
         {
             var user = await _dbContext.Clients
                 .FirstOrDefaultAsync(client => client.Email == request.Email);
@@ -54,7 +54,7 @@ namespace SimpleCloud_Monolithic.Application.Clients.Commands.CreateClient
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return newUser.Id;
+            return new CommandHandlerResponse<Guid>() { Response = newUser.Id } ;
         }
     }
 }

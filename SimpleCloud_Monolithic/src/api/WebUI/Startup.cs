@@ -69,19 +69,17 @@ namespace SimpleCloudMonolithic.WebUI
             //    configuration.RootPath = "ClientApp/dist";
             //});
 
-            services.AddOpenApiDocument(configure =>
-            {
-                configure.Title = "SimpleCloud_Monolithic API";
-                configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-                {
-                    Type = OpenApiSecuritySchemeType.ApiKey,
-                    Name = "Authorization",
-                    In = OpenApiSecurityApiKeyLocation.Header,
-                    Description = "Type into the textbox: Bearer {your JWT token}."
-                });
+            services.AddOpenApiDocument();
+                //configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+                //{
+                //    Type = OpenApiSecuritySchemeType.ApiKey,
+                //    Name = "Authorization",
+                //    In = OpenApiSecurityApiKeyLocation.Header,
+                //    Description = "Type into the textbox: Bearer {your JWT token}."
+                //});
 
-                configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-            });
+                //configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -113,6 +111,10 @@ namespace SimpleCloudMonolithic.WebUI
             {
                 app.UseSpaStaticFiles();
             }
+
+            app.UseOpenApi();
+
+            app.UseSwaggerUi3();
 
             app.UseSwaggerUi3(settings =>
             {

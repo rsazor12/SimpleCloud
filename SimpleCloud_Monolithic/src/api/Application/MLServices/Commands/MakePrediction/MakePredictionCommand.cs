@@ -7,6 +7,7 @@ using SimpleCloud_Monolithic.Application.Common.Mappings;
 using SimpleCloud_Monolithic.Application.MLServices.Commands.MakePrediction;
 using SimpleCloud_Monolithic.Application.Models;
 using SimpleCloud_Monolithic.Application.Models.DTO;
+using SimpleCloud_Monolithic.Application.Models.HandlerResponse;
 using SimpleCloud_Monolithic.Domain.Entities;
 using SimpleCloudMonolithic.Application.Common.Exceptions;
 using SimpleCloudMonolithic.Application.Common.Interfaces;
@@ -21,12 +22,12 @@ using System.Threading.Tasks;
 
 namespace SimpleCloud_Monolithic.Application.MLServices.Commands
 {
-    public class MakePredictionCommand : IRequest<IEnumerable<MakePredictionCommandVM>>
+    public class MakePredictionCommand : IRequest<CommandHandlerResponse<IEnumerable<MakePredictionCommandVM>>>
     {
         public Guid MLServiceId { get; set; }
     }
 
-    public class MakepredictionCommandHandler : IRequestHandler<MakePredictionCommand, IEnumerable<MakePredictionCommandVM>>
+    public class MakepredictionCommandHandler : IRequestHandler<MakePredictionCommand, CommandHandlerResponse<IEnumerable<MakePredictionCommandVM>>>
     {
         private readonly IApplicationDbContext _dbContext;
         private IModelBuilder _modelBuilder;
@@ -46,7 +47,7 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<MakePredictionCommandVM>> Handle(MakePredictionCommand request, CancellationToken cancellationToken)
+        public async Task<CommandHandlerResponse<IEnumerable<MakePredictionCommandVM>>> Handle(MakePredictionCommand request, CancellationToken cancellationToken)
         {
             var mlService = await _dbContext.MLServices
                .Include(mlService => mlService.ServiceDetails)
@@ -80,7 +81,7 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands
             //Console.WriteLine($"ImageSource: {testFile.ImageSource}");
             //Console.WriteLine($"\n\nActual Label: {testFile.Label} \nPredicted Label value {predictionResult.Prediction} \nPredicted Label scores: [{String.Join(",", predictionResult.Score)}]\n\n");
 
-            return predictionResult;
+            return new CommandHandlerResponse<IEnumerable<MakePredictionCommandVM>>() { Response = predictionResult };
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SimpleCloud_Monolithic.Application.Models.HandlerResponse;
 using SimpleCloud_Monolithic.Domain.Entities;
 using SimpleCloudMonolithic.Application.Common.Exceptions;
 using SimpleCloudMonolithic.Application.Common.Interfaces;
@@ -9,13 +10,13 @@ using System.Threading.Tasks;
 
 namespace SimpleCloud_Monolithic.Application.MLServices.Commands.CreateLearningService
 {
-    public class CreateMLServiceCommand : IRequest<Guid>
+    public class CreateMLServiceCommand : IRequest<CommandHandlerResponse<Guid>>
     {
         public string ServiceName { get; set; }
-        public Guid CliendId { get; set; }
+        public Guid ClientId { get; set; }
     }
 
-    public class CreateMLServiceCommandHandler : IRequestHandler<CreateMLServiceCommand, Guid>
+    public class CreateMLServiceCommandHandler : IRequestHandler<CreateMLServiceCommand, CommandHandlerResponse<Guid>>
     {
         private readonly IApplicationDbContext _dbContext;
 
@@ -23,11 +24,11 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands.CreateLearningS
         {
             _dbContext = context;
         }
-        public async Task<Guid> Handle(CreateMLServiceCommand request, CancellationToken cancellationToken)
+        public async Task<CommandHandlerResponse<Guid>> Handle(CreateMLServiceCommand request, CancellationToken cancellationToken)
         {
             var client =
-                _dbContext.Clients.SingleOrDefault(client => client.Id == request.CliendId)
-                ?? throw new NotFoundException(nameof(Client), request.CliendId);
+                _dbContext.Clients.SingleOrDefault(client => client.Id == request.ClientId)
+                ?? throw new NotFoundException(nameof(Client), request.ClientId);
 
             var orderedService = new Domain.Entities.MLService();
 
@@ -39,7 +40,7 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands.CreateLearningS
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return orderedService.Id;
+            return new CommandHandlerResponse<Guid>() { Response = orderedService.Id };
         }
     }
 }

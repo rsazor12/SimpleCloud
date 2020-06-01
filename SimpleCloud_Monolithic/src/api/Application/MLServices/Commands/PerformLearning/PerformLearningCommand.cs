@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using SimpleCloud_Monolithic.Application.Common.Configurations;
+using SimpleCloud_Monolithic.Application.Models.HandlerResponse;
 using SimpleCloud_Monolithic.Domain.Entities;
 using SimpleCloudMonolithic.Application.Common.Exceptions;
 using SimpleCloudMonolithic.Application.Common.Interfaces;
@@ -15,19 +16,21 @@ using System.Threading.Tasks;
 
 namespace SimpleCloud_Monolithic.Application.MLServices.Commands
 {
-    public class PerformLearningCommand : IRequest
+    public class PerformLearningCommand : IRequest<CommandHandlerResponse>
     {
+        // [FromQuery(Name = "mlServiceId")]
+        // [BindProperty]
         public Guid MLServiceId { get; set; }
         // public string TrainDataFilePath { get; set; }
     }
 
-    public class CreateTodoItemCommandHandler : IRequestHandler<PerformLearningCommand>
+    public class PerformLearningCommandHandler : IRequestHandler<PerformLearningCommand, CommandHandlerResponse>
     {
         private readonly IApplicationDbContext _dbContext;
         private IModelBuilder _modelBuilder;
         private readonly AppSettings _appSettings;
 
-        public CreateTodoItemCommandHandler(
+        public PerformLearningCommandHandler(
             IModelBuilder modelBuilder,
             IApplicationDbContext dbContext,
             IOptions<AppSettings> settings
@@ -38,7 +41,7 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands
             _appSettings = settings.Value;
         }
 
-        async Task<Unit> IRequestHandler<PerformLearningCommand, Unit>.Handle(PerformLearningCommand request, CancellationToken cancellationToken)
+        async Task<CommandHandlerResponse> IRequestHandler<PerformLearningCommand, CommandHandlerResponse>.Handle(PerformLearningCommand request, CancellationToken cancellationToken)
         {
 
             var mlService = await _dbContext.MLServices
@@ -74,7 +77,7 @@ namespace SimpleCloud_Monolithic.Application.MLServices.Commands
 
             await _dbContext.SaveChangesAsync(cancellationToken);
 
-            return Unit.Value;
+            return new CommandHandlerResponse();
         }
     }
 }

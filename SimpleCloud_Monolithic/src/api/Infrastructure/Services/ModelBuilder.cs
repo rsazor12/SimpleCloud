@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace SimpleCloudMonolithic.Infrastructure.Services
@@ -72,7 +73,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Services
             // Load Trained Model
             DataViewSchema predictionPipelineSchema;
             ITransformer predictionPipeline = mlContext.Model.Load(modelPath, out predictionPipelineSchema);
-
+            
             // Create PredictionEngines
             //var predictionEngine
             //    = mlContext.Model.CreatePredictionEngine<List<ModelInput>, List<ModelOutput>>(predictionPipeline);
@@ -105,7 +106,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Services
                                       .Append(mlContext.Transforms.LoadRawImageBytes("ImageSource_featurized", null, "ImageSource"))
                                       .Append(mlContext.Transforms.CopyColumns("Features", "ImageSource_featurized"));
             // Set the training algorithm 
-            var trainer = mlContext.MulticlassClassification.Trainers.ImageClassification(new ImageClassificationTrainer.Options() { LabelColumnName = "Label", FeatureColumnName = "Features" })
+            var trainer = mlContext.MulticlassClassification.Trainers.ImageClassification(new ImageClassificationTrainer.Options() { LabelColumnName = "Label", FeatureColumnName = "Features", Arch = ImageClassificationTrainer.Architecture.InceptionV3  })
                                       .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "PredictedLabel"));
 
             var trainingPipeline = dataProcessPipeline.Append(trainer);
@@ -118,7 +119,7 @@ namespace SimpleCloudMonolithic.Infrastructure.Services
             _logger.LogInformation("=============== Training  model ===============");
             mlContext.Log += LogMLEvent;
             ITransformer model = trainingPipeline.Fit(trainingDataView);
-
+            
             _logger.LogInformation("=============== End of training process ===============");
             return model;
         }
