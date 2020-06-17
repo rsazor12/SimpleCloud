@@ -18,11 +18,11 @@ namespace SimpleCloud_Monolithic.WebUI.Controllers
 
         }
 
-        [HttpGet]
-        public async Task<ActionResult<CommandHandlerResponse<Guid>>> CreateClientz(CreateClientCommand command)
-        {
-            return Ok(await Mediator.Send(command));
+        //[HttpGet]
+        //public async Task<ActionResult<CommandHandlerResponse<Guid>>> CreateClientz(CreateClientCommand command)
+        //{
+        //    return Ok(await Mediator.Send(command));
 
-        }
+        //}
     }
 }

@@ -32,7 +32,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\api\I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "src\api\WebUI\WebUI.csproj", "{43C8D6A3-58D8-4D2A-974C-AE170F6F3948}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCloud_Client", "SimpleCloud_Client\SimpleCloud_Client.csproj", "{B579D5CA-EEE2-4418-A84C-71026FC1914F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleCloud_Client", "SimpleCloud_Client\SimpleCloud_Client.csproj", "{B579D5CA-EEE2-4418-A84C-71026FC1914F}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BE3CBA43-74F9-4E5E-8A68-556555D777F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +74,10 @@ Global
 		{B579D5CA-EEE2-4418-A84C-71026FC1914F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B579D5CA-EEE2-4418-A84C-71026FC1914F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B579D5CA-EEE2-4418-A84C-71026FC1914F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE3CBA43-74F9-4E5E-8A68-556555D777F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE3CBA43-74F9-4E5E-8A68-556555D777F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE3CBA43-74F9-4E5E-8A68-556555D777F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE3CBA43-74F9-4E5E-8A68-556555D777F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

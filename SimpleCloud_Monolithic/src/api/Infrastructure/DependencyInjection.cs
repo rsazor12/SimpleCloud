@@ -1,13 +1,11 @@
-﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleCloud_Monolithic.Application.Common.Configurations;
+using SimpleCloudMonolithic.Application.Common.Interfaces;
 using SimpleCloudMonolithic.Infrastructure.Files;
-using SimpleCloudMonolithic.Infrastructure.Identity;
 using SimpleCloudMonolithic.Infrastructure.Persistence;
 using SimpleCloudMonolithic.Infrastructure.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using ModelBuilder = SimpleCloudMonolithic.Infrastructure.Services.ModelBuilder;
-using SimpleCloud_Monolithic.Application.Common.Configurations;
 
 namespace SimpleCloudMonolithic.Infrastructure
 {
@@ -17,29 +15,32 @@ namespace SimpleCloudMonolithic.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, AppSettings appSettings)
         {
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    // configuration.GetConnectionString("DefaultConnection"),
-                    appSettings.ConnectionStrings.DefaultConnection,
-                    b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(
+            //        // configuration.GetConnectionString("DefaultConnection"),
+            //        appSettings.ConnectionStrings.DefaultConnection,
+            //        b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                appSettings.ConnectionStrings.DefaultConnection,
+                b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
-            services.AddDefaultIdentity<ApplicationUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<ApplicationUser>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+            //services.AddIdentityServer()
+            //    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             // services 
             services.AddTransient<IDateTime, DateTimeService>();
-            services.AddTransient<IIdentityService, IdentityService>();
+            //services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
             services.AddTransient<IModelBuilder, ModelBuilder>();
 
-            services.AddAuthentication()
-                .AddIdentityServerJwt();
+            //services.AddAuthentication()
+            //    .AddIdentityServerJwt();
 
             return services;
         }

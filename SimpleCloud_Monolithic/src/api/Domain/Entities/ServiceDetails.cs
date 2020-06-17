@@ -22,7 +22,7 @@ namespace SimpleCloud_Monolithic.Domain.Entities
 
         public ServiceDetails()
         {
-
+            ServiceTasks = new HashSet<ServiceTask>();
         }
 
         public ServiceDetails(

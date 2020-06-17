@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.ML" Version="1.5.0-preview" />
     <PackageReference Include="Microsoft.ML.ImageAnalytics" Version="1.5.0-preview" />
     <PackageReference Include="Microsoft.ML.Vision" Version="1.5.0-preview" />
+    <PackageReference Include="PostSharp.Redist" Version="6.6.8" />
     <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.1.0" />
   </ItemGroup>
 
@@ -25,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\CQRS\" />
+    <Folder Include="Invoice\Commands\" />
     <Folder Include="MLServices\Queries\" />
   </ItemGroup>
 

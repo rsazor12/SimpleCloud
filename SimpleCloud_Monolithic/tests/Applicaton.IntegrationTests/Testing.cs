@@ -1,5 +1,4 @@
 ﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
-using SimpleCloudMonolithic.Infrastructure.Identity;
 using SimpleCloudMonolithic.Infrastructure.Persistence;
 using SimpleCloudMonolithic.WebUI;
 using MediatR;
@@ -87,25 +86,25 @@ public class Testing
 
     private static string _currentUserId;
 
-    public static async Task<string> RunAsDefaultUserAsync()
-    {
-        return await RunAsUserAsync("test@local", "Testing1234!");
-    }
+    //public static async Task<string> RunAsDefaultUserAsync()
+    //{
+    //    return await RunAsUserAsync("test@local", "Testing1234!");
+    //}
 
-    public static async Task<string> RunAsUserAsync(string userName, string password)
-    {
-        using var scope = _scopeFactory.CreateScope();
+    //public static async Task<string> RunAsUserAsync(string userName, string password)
+    //{
+    //    using var scope = _scopeFactory.CreateScope();
 
-        var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+    //    var userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
-        var user = new ApplicationUser { UserName = userName, Email = userName };
+    //    var user = new ApplicationUser { UserName = userName, Email = userName };
 
-        var result = await userManager.CreateAsync(user, password);
+    //    var result = await userManager.CreateAsync(user, password);
 
-        _currentUserId = user.Id;
+    //    _currentUserId = user.Id;
 
-        return _currentUserId;
-    }
+    //    return _currentUserId;
+    //}
 
     public static async Task ResetState()
     {

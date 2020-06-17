@@ -50,5 +50,10 @@ namespace SimpleCloud_Monolithic.Domain.Entities
             Client = client;
         }
 
+        public void AddTask(string name, DateTime startTime, DateTime endTime)
+        {
+            ServiceDetails.ServiceTasks.Add(new ServiceTask(name, startTime, endTime));
+        }
+
     }
 }

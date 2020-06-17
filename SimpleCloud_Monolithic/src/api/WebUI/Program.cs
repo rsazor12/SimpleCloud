@@ -1,4 +1,3 @@
-using SimpleCloudMonolithic.Infrastructure.Identity;
 using SimpleCloudMonolithic.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -30,9 +29,9 @@ namespace SimpleCloudMonolithic.WebUI
                         context.Database.Migrate();
                     }
 
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    // var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
-                    await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager);
+                    // await ApplicationDbContextSeed.SeedDefaultUserAsync(userManager);
                     await ApplicationDbContextSeed.SeedSampleDataAsync(context);
                 }
                 catch (Exception ex)

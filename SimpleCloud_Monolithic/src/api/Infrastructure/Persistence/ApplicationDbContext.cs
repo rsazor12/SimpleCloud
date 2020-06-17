@@ -1,23 +1,20 @@
 ﻿using SimpleCloudMonolithic.Application.Common.Interfaces;
 using SimpleCloudMonolithic.Domain.Common;
-using SimpleCloudMonolithic.Infrastructure.Identity;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.Options;
 using System.Data;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using SimpleCloud_Monolithic.Domain.Entities;
 using System.Diagnostics;
-using IdentityServer4.EntityFramework.Options;
 
 namespace SimpleCloudMonolithic.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>,  IApplicationDbContext
+    //public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>,  IApplicationDbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
-        private readonly ICurrentUserService _currentUserService;
+        // private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
         private IDbContextTransaction _currentTransaction;
 
@@ -26,19 +23,36 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence
         public DbSet<ServiceDetails> ServiceDetails { get; set; }
         public DbSet<ServiceTask> ServiceTasks { get; set; }
         public DbSet<File> Files { get; set; }
-      
-        public ApplicationDbContext(
-            DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions,
-            ICurrentUserService currentUserService,
-            IDateTime dateTime) : base(options, operationalStoreOptions)
-        {
-            _currentUserService = currentUserService;
-            _dateTime = dateTime;
 
-            // Context.
-            // ChangeTracker.LazyLoadingEnabled = false;
+        public ApplicationDbContext() { }
+
+        public ApplicationDbContext(
+            DbContextOptions<ApplicationDbContext> options)
+            :base(options)
+        {
+            // _dateTime = dateTime;
         }
+        
+        //public ApplicationDbContext(
+        //    DbContextOptions<ApplicationDbContext> options,
+        //    IDateTime dateTime)
+        //    :base(options)
+        //{
+        //    _dateTime = dateTime;
+        //}
+
+        //public ApplicationDbContext(
+        //    DbContextOptions options,
+        //    IOptions<OperationalStoreOptions> operationalStoreOptions,
+        //    ICurrentUserService currentUserService,
+        //    IDateTime dateTime) : base(options)
+        //{
+        //    _currentUserService = currentUserService;
+        //    _dateTime = dateTime;
+
+        //    // Context.
+        //    // ChangeTracker.LazyLoadingEnabled = false;
+        //}
 
         //public DbSet<TodoList> TodoLists { get; set; }
 
@@ -46,20 +60,22 @@ namespace SimpleCloudMonolithic.Infrastructure.Persistence
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.CreatedBy = _currentUserService.UserId;
-                        entry.Entity.Created = _dateTime.Now;
-                        break;
-                    case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
-                        entry.Entity.LastModified = _dateTime.Now;
-                        break;
-                }
-            }
+            //foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
+            //{
+            //    switch (entry.State)
+            //    {
+            //        case EntityState.Added:
+            //            //entry.Entity.CreatedBy = _currentUserService.UserId;
+            //            entry.Entity.CreatedBy = "testUserId";
+            //            entry.Entity.Created = _dateTime.Now;
+            //            break;
+            //        case EntityState.Modified:
+            //            //entry.Entity.LastModifiedBy = _currentUserService.UserId;
+            //            entry.Entity.LastModifiedBy = "testUserId";
+            //            entry.Entity.LastModified = _dateTime.Now;
+            //            break;
+            //    }
+            //}
 
             return base.SaveChangesAsync(cancellationToken);
         }

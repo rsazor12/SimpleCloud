@@ -1,7 +1,12 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SimpleCloud_Monolithic.Application.Common.CQRS;
 using SimpleCloud_Monolithic.Application.Models.HandlerResponse;
+using SimpleCloud_Monolithic.Domain.Entities;
+using SimpleCloudMonolithic.Application.Common.Exceptions;
 using SimpleCloudMonolithic.Application.Common.Interfaces;
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,32 +19,57 @@ namespace SimpleCloudMonolithic.Application.Common.Behaviours
         private readonly ILogger<TRequest> _logger;
         private readonly ICurrentUserService _currentUserService;
         private readonly IIdentityService _identityService;
+        private readonly IApplicationDbContext _dbContext;
 
         public RequestPerformanceBehaviour(
             ILogger<TRequest> logger, 
             ICurrentUserService currentUserService,
-            IIdentityService identityService)
+            IIdentityService identityService,
+            IApplicationDbContext dbContext)
         {
             _timer = new Stopwatch();
 
             _logger = logger;
             _currentUserService = currentUserService;
             _identityService = identityService;
+            _dbContext = dbContext;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
+            var startTime = DateTime.UtcNow;
             _timer.Start();
 
             var response = await next();
 
+            var endTime = DateTime.UtcNow;
             _timer.Stop();
+
 
             var elapsedMilliseconds = _timer.ElapsedMilliseconds;
 
             if(typeof(HandlerResponse).IsAssignableFrom(typeof(TResponse)))
             {
-                (response as HandlerResponse).RequestMiliseconds = elapsedMilliseconds;
+                (response as HandlerResponse).HandlerExecutionTime = elapsedMilliseconds;
+
+
+                // Store info about usage to database
+                if (typeof(IBillableRequest).IsAssignableFrom(typeof(TRequest)))
+                {
+                    // request = (TRequest)(request as IBillableRequestBase);
+                    var billableRequest = request as IBillableRequest;
+
+                    var mlService = await _dbContext.MLServices
+                       .Include(mlService => mlService.ServiceDetails)
+                       .Include(mlService => mlService.Client)
+                       //.ProjectTo<MLService>(_mapper.ConfigurationProvider)
+                       .FirstOrDefaultAsync(mlService => mlService.Id == billableRequest.MLServiceId)
+                       ?? throw new NotFoundException(nameof(MLService), billableRequest.MLServiceId);
+
+                    mlService.AddTask(nameof(billableRequest), startTime, endTime);
+
+                    await _dbContext.SaveChangesAsync(cancellationToken);
+                }
             }    
 
 

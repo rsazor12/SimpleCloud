@@ -6,6 +6,6 @@ namespace SimpleCloud_Monolithic.Application.Models.HandlerResponse
 {
     public class HandlerResponse
     {
-        public long RequestMiliseconds { get; set; }
+        public long HandlerExecutionTime { get; set; }
     }
 }

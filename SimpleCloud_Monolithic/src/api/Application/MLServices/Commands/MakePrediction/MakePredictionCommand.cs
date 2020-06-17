@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SimpleCloud_Monolithic.Application.Common.Configurations;
+using SimpleCloud_Monolithic.Application.Common.CQRS;
 using SimpleCloud_Monolithic.Application.Common.Mappings;
 using SimpleCloud_Monolithic.Application.MLServices.Commands.MakePrediction;
 using SimpleCloud_Monolithic.Application.Models;
@@ -22,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace SimpleCloud_Monolithic.Application.MLServices.Commands
 {
-    public class MakePredictionCommand : IRequest<CommandHandlerResponse<IEnumerable<MakePredictionCommandVM>>>
+    public class MakePredictionCommand : IRequest<CommandHandlerResponse<IEnumerable<MakePredictionCommandVM>>>, IBillableRequest
     {
         public Guid MLServiceId { get; set; }
     }
