@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identityapi
+    build:
+      context: .
+      dockerfile: src/Services/Identity/src/Identity.Api/Dockerfile
+    depends_on:
+      - identity-api-db
+
+  identity-api-db:
+    container_name: identity-api-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1401:1433"
+    environment:
+      SA_PASSWORD: "password123!"
+      ACCEPT_EULA: "Y"
+
+  machinelearning.api:
+    image: ${DOCKER_REGISTRY-}machinelearningapi
+    build:
+      context: .
+      dockerfile: src/Services/MachineLearning/src/MachineLearning.Api/Dockerfile
+    depends_on:
+      - machinelearning-api-db
+
+  machinelearning-api-db:
+    container_name: machinelearning-api-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1402:1433"
+    environment:
+      SA_PASSWORD: "password123!"
+      ACCEPT_EULA: "Y"

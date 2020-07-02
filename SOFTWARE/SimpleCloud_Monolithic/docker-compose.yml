@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  webui:
+    image: ${DOCKER_REGISTRY-}webui
+    build:
+      context: .
+      dockerfile: src/api/WebUI/Dockerfile
+    depends_on:
+      - sql-server-db
+
+  sql-server-db:
+    container_name: sql-server-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "password123!"
+      ACCEPT_EULA: "Y"

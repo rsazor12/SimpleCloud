@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <RootNamespace>Payment_SimpleCloud_MicroservicesHttp.Domain</RootNamespace>
+    <AssemblyName>Payment_SimpleCloud_MicroservicesHttp.Domain</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
+</Project>
