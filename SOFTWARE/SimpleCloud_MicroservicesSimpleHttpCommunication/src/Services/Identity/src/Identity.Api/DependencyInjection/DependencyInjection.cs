@@ -4,6 +4,8 @@ using Identity_SimpleCloud_MicroservicesHttp.Application.Common.Configurations;
 using Identity_SimpleCloud_MicroservicesHttp.Application.Common.Interfaces;
 using Identity_SimpleCloud_MicroservicesHttp.Infrastructure.Persistence;
 using Identity_SimpleCloud_MicroservicesHttp.Infrastructure.Services;
+using System.Reflection;
+using AutoMapper;
 
 namespace Identity_SimpleCloud_MicroservicesHttp.Infrastructure
 {
@@ -38,7 +40,10 @@ namespace Identity_SimpleCloud_MicroservicesHttp.Infrastructure
 
             // services 
             services.AddTransient<IDateTime, DateTimeService>();
-            
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+            // services.AddAutomapper
 
             return services;
         }

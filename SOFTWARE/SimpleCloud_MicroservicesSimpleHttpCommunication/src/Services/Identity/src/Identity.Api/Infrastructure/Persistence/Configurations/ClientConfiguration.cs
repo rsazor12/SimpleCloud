@@ -7,10 +7,11 @@ using System.Text;
 
 namespace Identity_SimpleCloud_MicroservicesHttp.Infrastructure.Persistence.Configurations
 {
-    public class MLServiceConfiguration : IEntityTypeConfiguration<Client>
+    public class ClientConfiguration : IEntityTypeConfiguration<Client>
     {
         public void Configure(EntityTypeBuilder<Client> builder)
         {
+            builder.HasKey(client => client.Id);
             //builder
             //    .HasOne(mlService => mlService.ServiceDetails)
             //    .WithOne(serviceDetails => serviceDetails.MLService)
@@ -20,7 +21,6 @@ namespace Identity_SimpleCloud_MicroservicesHttp.Infrastructure.Persistence.Conf
             //    .HasOne(mlService => mlService.Client)
             //    .WithOne(serviceDetails => serviceDetails.MLService)
             //    .HasForeignKey<MLService>(mlServiceDetails => mlServiceDetails.ClientId);
-
 
         }
     }

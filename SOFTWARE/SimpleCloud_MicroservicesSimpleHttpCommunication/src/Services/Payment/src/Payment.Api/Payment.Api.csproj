@@ -15,7 +15,7 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <UserSecretsId>5a6ec14d-67dc-485f-8c88-6c2473e2550b</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerfileContext>..\..\..\..\..</DockerfileContext>
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 

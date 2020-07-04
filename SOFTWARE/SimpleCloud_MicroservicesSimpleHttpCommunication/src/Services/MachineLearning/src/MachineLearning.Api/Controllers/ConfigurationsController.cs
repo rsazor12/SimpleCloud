@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MachineLearning_SimpleCloud_MicroservicesHttp.Controllers;
 using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Configurations.Commands;
 
-namespace SimpleCloud_Monolithic.WebUI.Controllers
+namespace MachineLearning_SimpleCloud_MicroservicesHttp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

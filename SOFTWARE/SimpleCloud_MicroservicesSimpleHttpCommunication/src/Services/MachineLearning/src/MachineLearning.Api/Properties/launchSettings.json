@@ -16,7 +16,7 @@
         "DOTNET_ENVIRONMENT": "Development"
       }
     },
-    "SimpleCloud_Monolithic.WebUI": {
+    "MachineLearning_SimpleCloud_MicroservicesHttp": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

@@ -12,23 +12,23 @@ namespace Identity_SimpleCloud_MicroservicesHttp.Application.Common.Mappings
         public MappingProfile()
         {
             ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
-            ApplyMappingForEntities();
+            // ApplyMappingForEntities();
         }
 
-        private void ApplyMappingForEntities()
-        {
-            var assembly = AppDomain
-                .CurrentDomain
-                .GetAssemblies()
-                .SingleOrDefault(assembly => assembly.GetName().Name == "Identity_SimpleCloud_MicroservicesHttp.Domain");
+        //private void ApplyMappingForEntities()
+        //{
+        //    var assembly = AppDomain
+        //        .CurrentDomain
+        //        .GetAssemblies()
+        //        .SingleOrDefault(assembly => assembly.GetName().Name == "Identity_SimpleCloud_MicroservicesHttp.Domain");
 
-            var types = assembly.GetTypes().Where(myType => myType.IsClass && myType.IsSubclassOf(typeof(Entity)));
+        //    var types = assembly.GetTypes().Where(myType => myType.IsClass && myType.IsSubclassOf(typeof(Entity)));
   
-            foreach (Type type in types)
-            {
-                CreateMap(type, type);
-            }
-        }
+        //    foreach (Type type in types)
+        //    {
+        //        CreateMap(type, type);
+        //    }
+        //}
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {

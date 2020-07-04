@@ -5,7 +5,7 @@ using MachineLearning_SimpleCloud_MicroservicesHttp.Controllers;
 using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Models.HandlerResponse;
 using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Clients.Commands.CreateClient;
 
-namespace SimpleCloud_Monolithic.WebUI.Controllers
+namespace MachineLearning_SimpleCloud_MicroservicesHttp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

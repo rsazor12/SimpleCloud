@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SimpleCloud_Monolithic.WebUI.Requests
+namespace MachineLearning_SimpleCloud_MicroservicesHttp.Requests
 {
     [BindProperties]
     public class PerformLearningRequest

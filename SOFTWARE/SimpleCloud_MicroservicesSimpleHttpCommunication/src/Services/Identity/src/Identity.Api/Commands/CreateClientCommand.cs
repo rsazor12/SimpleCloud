@@ -15,6 +15,7 @@ namespace Identity_SimpleCloud_MicroservicesHttp.Application.Clients.Commands.Cr
     public class CreateClientCommand // : IMapFrom<Client>
     {
         public string Email { get; set; }
+        public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
 

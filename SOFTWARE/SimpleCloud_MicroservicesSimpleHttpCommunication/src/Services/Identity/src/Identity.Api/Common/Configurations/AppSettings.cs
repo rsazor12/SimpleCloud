@@ -8,5 +8,6 @@ namespace Identity_SimpleCloud_MicroservicesHttp.Application.Common.Configuratio
     {
         public FileStorageSettings FileStorageSettings { get; set; }
         public ConnectionStrings ConnectionStrings { get; set; }
+        public string MachineLearningApi { get; set; }
     }
 }

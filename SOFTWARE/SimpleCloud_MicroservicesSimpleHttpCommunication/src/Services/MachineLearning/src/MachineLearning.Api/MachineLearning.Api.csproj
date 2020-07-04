@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>SimpleCloud_Monolithic.WebUI</RootNamespace>
-    <AssemblyName>SimpleCloud_Monolithic.WebUI</AssemblyName>
+    <RootNamespace>MachineLearning_SimpleCloud_MicroservicesHttp</RootNamespace>
+    <AssemblyName>MachineLearning_SimpleCloud_MicroservicesHttp</AssemblyName>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>true</IsPackable>

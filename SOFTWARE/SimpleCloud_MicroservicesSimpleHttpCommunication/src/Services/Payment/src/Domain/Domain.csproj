@@ -6,8 +6,4 @@
     <AssemblyName>Payment_SimpleCloud_MicroservicesHttp.Domain</AssemblyName>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
 </Project>

@@ -10,10 +10,14 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Domain.Entities
         public string Name { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public Payment Payment { get; set; }
+
+
+        public Client Client { get; set; }
 
         // EF Core
         // public Guid MLServiceId { get; set; }
-        public Guid ServiceDetailsId { get; private set; }
+        // public Guid ServiceDetailsId { get; private set; }
         // public ServiceDetails ServiceDetails { get; set; }
 
 

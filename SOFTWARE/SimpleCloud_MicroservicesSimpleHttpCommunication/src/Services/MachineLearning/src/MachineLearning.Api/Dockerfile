@@ -22,4 +22,4 @@ RUN dotnet publish "MachineLearning.Api.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SimpleCloud_Monolithic.WebUI.dll"]
+ENTRYPOINT ["dotnet", "MachineLearning_SimpleCloud_MicroservicesHttp.dll"]

@@ -7,10 +7,15 @@ using System.Text;
 
 namespace Payment_SimpleCloud_MicroservicesHttp.Infrastructure.Persistence.Configurations
 {
-    public class ServiceTaskConfiguration : IEntityTypeConfiguration<ClientTask>
+    public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
     {
-        public void Configure(EntityTypeBuilder<ClientTask> builder)
+        public void Configure(EntityTypeBuilder<Payment> builder)
         {
+            //builder
+            //    .h
+            //    .HasMany(client => client.ClientTasks)
+            //    .WithOne(clientTask => clientTask.Client);
+                    
             //builder
             //    .HasOne(serviceTask => serviceTask.ServiceDetails)
             //    .WithMany(serviceDetails => serviceDetails.ServiceTasks)
