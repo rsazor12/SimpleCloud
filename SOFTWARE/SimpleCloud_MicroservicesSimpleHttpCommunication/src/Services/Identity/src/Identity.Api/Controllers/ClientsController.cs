@@ -23,6 +23,7 @@ namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.Controllers
         private readonly IIdentityDbContext _identityDbContext;
         private readonly IMapper _mapper;
         private readonly ClientsClient _machineLearningClientsHttpClient;
+        private readonly Payment_SimpleCloud_MicroservicesHttp.ClientsClient _paymentClientsHttpClient;
         private readonly AppSettings _appSettings;
 
         public ClientsController(IIdentityDbContext dbContext, IMapper mapper, IOptions<AppSettings> settings)
@@ -31,6 +32,7 @@ namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.Controllers
             _mapper = mapper;
             _appSettings = settings.Value;
             _machineLearningClientsHttpClient = new ClientsClient(_appSettings.MachineLearningApi, new HttpClient());
+            _paymentClientsHttpClient = new Payment_SimpleCloud_MicroservicesHttp.ClientsClient(new HttpClient()) { BaseUrl = _appSettings.PaymentApi};
         }
 
         [HttpPost]
@@ -57,7 +59,8 @@ namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.Controllers
 
         public async Task AnnounceClientCreatedAsync(Client client)
         {
-            await _machineLearningClientsHttpClient.CreateClientAsync(new MachineLearning_SimpleCloud_MicroservicesHttp.CreateClientCommand() { Email = client.Email });
+            await _machineLearningClientsHttpClient.CreateClientAsync(new MachineLearning_SimpleCloud_MicroservicesHttp.CreateClientCommand() { Id = client.Id, Email = client.Email });
+            await _paymentClientsHttpClient.CreateClientAsync(new Payment_SimpleCloud_MicroservicesHttp.CreateClientCommand() { Email = client.Email });
         }
 
         //[HttpPost]

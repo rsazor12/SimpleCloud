@@ -8,5 +8,6 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Confi
     {
         public FileStorageSettings FileStorageSettings { get; set; }
         public ConnectionStrings ConnectionStrings { get; set; }
+        public string PaymentApi { get; set; }
     }
 }

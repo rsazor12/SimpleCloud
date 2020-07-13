@@ -14,13 +14,14 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Clients.Comm
 {
     public class CreateClientCommand : IRequest<CommandHandlerResponse<Guid>>, IMapFrom<Client>
     {
+        public Guid Id { get; set; }
         public string Email { get; set; }
        
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<CreateClientCommand, Client>()
-                .ForMember(user => user.Id, opt => opt.Ignore());
+            profile.CreateMap<CreateClientCommand, Client>();
+                //.ForMember(user => user.Id, opt => opt.Ignore());
         }
     }
 

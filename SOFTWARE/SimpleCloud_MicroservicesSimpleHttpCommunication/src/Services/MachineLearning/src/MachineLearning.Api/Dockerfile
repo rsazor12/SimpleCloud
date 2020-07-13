@@ -23,3 +23,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "MachineLearning_SimpleCloud_MicroservicesHttp.dll"]
+RUN icacls 'C:\inetpub\wwwroot\App_Data' /grant 'IIS_IUSRS:(F)'

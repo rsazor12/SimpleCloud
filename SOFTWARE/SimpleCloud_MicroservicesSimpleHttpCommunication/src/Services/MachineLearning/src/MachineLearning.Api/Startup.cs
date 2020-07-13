@@ -1,10 +1,8 @@
 using MachineLearning_SimpleCloud_MicroservicesHttp.Application;
 using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Configurations;
-using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Interfaces;
 using MachineLearning_SimpleCloud_MicroservicesHttp.Filters;
 using MachineLearning_SimpleCloud_MicroservicesHttp.Infrastructure;
 using MachineLearning_SimpleCloud_MicroservicesHttp.Infrastructure.Persistence;
-using MachineLearning_SimpleCloud_MicroservicesHttp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

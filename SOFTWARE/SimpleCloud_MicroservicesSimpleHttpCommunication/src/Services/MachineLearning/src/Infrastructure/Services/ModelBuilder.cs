@@ -106,8 +106,18 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Infrastructure.Services
                                       .Append(mlContext.Transforms.LoadRawImageBytes("ImageSource_featurized", null, "ImageSource"))
                                       .Append(mlContext.Transforms.CopyColumns("Features", "ImageSource_featurized"));
             // Set the training algorithm 
-            var trainer = mlContext.MulticlassClassification.Trainers.ImageClassification(new ImageClassificationTrainer.Options() { LabelColumnName = "Label", FeatureColumnName = "Features", Arch = ImageClassificationTrainer.Architecture.InceptionV3  })
+            var trainer = mlContext.MulticlassClassification.Trainers.ImageClassification(new ImageClassificationTrainer.Options() { LabelColumnName = "Label", FeatureColumnName = "Features", Arch = ImageClassificationTrainer.Architecture.ResnetV250 })
                                       .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel", "PredictedLabel"));
+
+            //.Append(mlContext.Model.LoadTensorFlowModel(inputTensorFlowModelFilePath));
+
+            // var trainer = mlContext.Model.LoadTensorFlowModel("./PretrainedModels/inception_v3.meta")               
+                                 //.ScoreTensorFlowModel(outputColumnNames: new[] { "InceptionV3/Predictions/Reshape" },
+                                 //                     inputColumnNames: new[] { "Label" },
+                                 //                     addBatchDimensionInput: false);
+
+            // var trainer2 = mlContext.MulticlassClassification.Trainers
+
 
             var trainingPipeline = dataProcessPipeline.Append(trainer);
 

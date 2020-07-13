@@ -8,7 +8,7 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Domain.Entities
     public class Payment: Entity
     {
         public PaymentStatus Status { get; private set; }
-        public DateTime EndTime { get; set; }
+        public DateTime Date { get; set; }
 
         public double Amount { get; set; }
 

@@ -40,14 +40,18 @@
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="api\**" />
     <Compile Remove="ClientApp\**" />
+    <Compile Remove="DSTUDIAPRACA MAGISTERSKASOFTWAREFileStorage\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="api\**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="DSTUDIAPRACA MAGISTERSKASOFTWAREFileStorage\**" />
     <EmbeddedResource Remove="api\**" />
     <EmbeddedResource Remove="ClientApp\**" />
+    <EmbeddedResource Remove="DSTUDIAPRACA MAGISTERSKASOFTWAREFileStorage\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="api\**" />
     <None Remove="ClientApp\**" />
+    <None Remove="DSTUDIAPRACA MAGISTERSKASOFTWAREFileStorage\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -134,7 +138,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="FileStorage\" />
     <Folder Include="Pages\Shared\" />
+    <Folder Include="Services\" />
     <Folder Include="wwwroot\api2\" />
   </ItemGroup>
 

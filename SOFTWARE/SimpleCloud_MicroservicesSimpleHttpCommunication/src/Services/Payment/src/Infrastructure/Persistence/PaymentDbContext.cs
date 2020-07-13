@@ -19,7 +19,7 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Infrastructure.Persistence
         private IDbContextTransaction _currentTransaction;
 
         public DbSet<Client> Clients { get; set; }
-        public DbSet<ClientTask> ServiceTasks { get; set; }
+        public DbSet<ClientTask> ClientTasks { get; set; }
 
         public PaymentDbContext() { }
 

@@ -10,6 +10,9 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Configurations;
+using Microsoft.Extensions.Options;
+using System.Net.Http;
 
 namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Behaviours
 {
@@ -20,12 +23,15 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Behav
         // private readonly ICurrentUserService _currentUserService;
         //private readonly IIdentityService _identityService;
         private readonly IMachineLearningDbContext _dbContext;
+        private readonly Payment_SimpleCloud_MicroservicesHttp.ClientTasksClient _paymentClientsHttpClient;
+        private readonly AppSettings _appSettings;
 
         public RequestPerformanceBehaviour(
             ILogger<TRequest> logger, 
             // ICurrentUserService currentUserService,
             //IIdentityService identityService,
-            IMachineLearningDbContext dbContext)
+            IMachineLearningDbContext dbContext,
+            IOptions<AppSettings> settings)
         {
             _timer = new Stopwatch();
 
@@ -33,6 +39,10 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Behav
             // _currentUserService = currentUserService;
             // _identityService = identityService;
             _dbContext = dbContext;
+            _appSettings = settings.Value;
+            // _machineLearningClientsHttpClient = new ClientsClient(_appSettings.MachineLearningApi, new HttpClient());
+            _paymentClientsHttpClient = new Payment_SimpleCloud_MicroservicesHttp.ClientTasksClient(new HttpClient()) { BaseUrl = _appSettings.PaymentApi };
+
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -70,6 +80,8 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Behav
                     _dbContext.ServiceTasks.Add(task);
                     mlService.AddTask(task);
 
+                    await AnnounceTaskExecutedAsync(mlService.Client, task.Name, task.StartTime, task.EndTime);
+
                     await _dbContext.SaveChangesAsync(cancellationToken);
                 }
             }    
@@ -91,6 +103,11 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Behav
             //}
 
             return response;
+        }
+
+        public async Task AnnounceTaskExecutedAsync(Client client, string taskName, DateTime startTime, DateTime endTime)
+        {
+            await _paymentClientsHttpClient.CreateClientAsync(new Payment_SimpleCloud_MicroservicesHttp.AddClientTaskCommand() { ClientEmail = client.Email, TaskName = taskName, StartTIme = startTime, EndTime = endTime});
         }
     }
 }

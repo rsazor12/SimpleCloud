@@ -12,7 +12,7 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Application.Common.Interfaces
         //DbSet<TodoItem> TodoItems { get; set; }
 
         DbSet<Client> Clients { get; set; }
-        DbSet<ClientTask> ServiceTasks { get; set; }
+        DbSet<ClientTask> ClientTasks { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
