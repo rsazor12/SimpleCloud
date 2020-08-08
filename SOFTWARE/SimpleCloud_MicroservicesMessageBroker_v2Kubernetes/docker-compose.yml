@@ -1,0 +1,69 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  identity.api:
+    image: ${DOCKER_REGISTRY-}identityapi
+    ports:
+        - "1421:80"
+    build:
+      context: .
+      dockerfile: src/Services/Identity/src/Identity.Api/Dockerfile
+    depends_on:
+      - rabbitmq 
+      - identity-api-db
+
+  identity-api-db:
+    container_name: identity-api-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1401:1433"
+    environment:
+      SA_PASSWORD: "password123!"
+      ACCEPT_EULA: "Y"
+
+  machinelearning.api:
+    image: ${DOCKER_REGISTRY-}machinelearningapi
+    ports:
+    - "1422:80"
+    build:
+      context: .
+      dockerfile: src/Services/MachineLearning/src/MachineLearning.Api/Dockerfile
+    depends_on:
+      - machinelearning-api-db
+      - rabbitmq
+
+  machinelearning-api-db:
+    container_name: machinelearning-api-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1402:1433"
+    environment:
+      SA_PASSWORD: "password123!"
+      ACCEPT_EULA: "Y"
+
+  payment.api:
+    image: ${DOCKER_REGISTRY-}paymentapi
+    ports:
+      - "1423:80"
+    build:
+      context: .
+      dockerfile: src/Services/Payment/src/Payment.Api/Dockerfile
+    depends_on:
+      - payment-api-db
+      - rabbitmq
+
+  payment-api-db:
+    container_name: payment-api-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - "1403:1433"
+    environment:
+      SA_PASSWORD: "password123!"
+      ACCEPT_EULA: "Y"

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: payment-api-db
+  name: payment-api-db
+spec:
+  ports:
+  - name: "1403"
+    port: 1403
+    targetPort: 1433
+  selector:
+    io.kompose.service: payment-api-db
+status:
+  loadBalancer: {}
