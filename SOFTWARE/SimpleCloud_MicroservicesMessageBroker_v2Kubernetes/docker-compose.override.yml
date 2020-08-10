@@ -5,6 +5,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
+      - AppSettings__ConnectionStrings__DefaultConnection=Server=machinelearning-api-db;Database=machinelearning-api-db;User=sa;Password=password1234;
+
     ports:
       - "80"
     volumes:
