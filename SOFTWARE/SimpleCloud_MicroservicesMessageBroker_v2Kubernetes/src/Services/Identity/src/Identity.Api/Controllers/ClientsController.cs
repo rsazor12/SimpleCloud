@@ -31,8 +31,6 @@ namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.Controllers
         private readonly Payment_SimpleCloud_MicroservicesHttp.ClientsClient _paymentClientsHttpClient;
         private readonly AppSettings _appSettings;
         private readonly IEventBus _eventBus;
-        // private readonly IEventBus _eventBus;
-
 
         public ClientsController(
             IIdentityDbContext dbContext,
@@ -51,58 +49,27 @@ namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.Controllers
         [HttpPost]
         public async Task<ActionResult<CommandHandlerResponse<Guid>>> CreateClient(Application.Clients.Commands.CreateClient.CreateClientCommand command)
         {
-           //  private readonly IEventBus _eventBus;
+            var user = await _identityDbContext.Clients
+                .FirstOrDefaultAsync(client => client.Email == command.Email);
 
+            if (user != null)
+                throw new ConflictException($"Entity {nameof(user)} with email {command.Email} already exists in database");
 
-             var newUser = new Client();
-            var message = new ItemCreatedIntegrationEvent("Item title", "Item description");
+            var newUser = new Client(command.Email, command.Password, command.Name, command.Surname);
 
-            _eventBus.Publish(message);
+            await _identityDbContext.Clients.AddAsync(newUser);
 
-            return Ok();
+            await _identityDbContext.SaveChangesAsync(default(CancellationToken));
 
-            // await AnnounceClientCreatedAsync(newUser);
-
-
-            //var user = await _identityDbContext.Clients
-            //    .FirstOrDefaultAsync(client => client.Email == command.Email);
-
-            //if (user != null)
-            //    throw new ConflictException($"Entity {nameof(user)} with email {command.Email} already exists in database");
-
-
-            //// var newUser = _mapper.Map<Client>(command);
-            //var newUser = new Client(command.Email, command.Password, command.Name, command.Surname);
-
-            //await _identityDbContext.Clients.AddAsync(newUser);
-
-            //await AnnounceClientCreatedAsync(newUser);
-
-            //await _identityDbContext.SaveChangesAsync(default(CancellationToken));
+            await AnnounceClientCreatedAsync(newUser);
 
             return new CommandHandlerResponse<Guid>() { Response = newUser.Id };
         }
 
         public async Task AnnounceClientCreatedAsync(Client client)
         {
-            // var @event = new ClientCreatedIntegrationEvent();
-            // _eventBus.Publish(@event);
-            // await _machineLearningClientsHttpClient.CreateClientAsync(new MachineLearning_SimpleCloud_MicroservicesHttp.CreateClientCommand() { Id = client.Id, Email = client.Email });
-            // await _paymentClientsHttpClient.CreateClientAsync(new Payment_SimpleCloud_MicroservicesHttp.CreateClientCommand() { Email = client.Email });
-        }
-
-        //[HttpPost]
-        //public async Task<ActionResult<CommandHandlerResponse<Guid>>> CreateClient(CreateClientCommand command)
-        //{
-        //    return Ok(await Mediator.Send(command));
-
-        //}
-
-        //[HttpGet]
-        //public async Task<ActionResult<CommandHandlerResponse<Guid>>> CreateClientz(CreateClientCommand command)
-        //{
-        //    return Ok(await Mediator.Send(command));
-
-        //}
+            var @event = new ClientCreatedIntegrationEvent() {ClientId = client.Id, Email = client.Email };
+            _eventBus.Publish(@event);
+          }
     }
 }

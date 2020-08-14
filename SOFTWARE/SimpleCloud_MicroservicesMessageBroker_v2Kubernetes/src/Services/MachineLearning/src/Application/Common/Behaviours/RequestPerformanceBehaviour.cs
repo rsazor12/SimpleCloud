@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Configurations;
 using Microsoft.Extensions.Options;
 using System.Net.Http;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+using MachineLearning_SimpleCloud_MicroservicesHttp.WebUI.IntegrationEvents;
 
 namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Behaviours
 {
@@ -25,13 +27,15 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Behav
         private readonly IMachineLearningDbContext _dbContext;
         private readonly Payment_SimpleCloud_MicroservicesHttp.ClientTasksClient _paymentClientsHttpClient;
         private readonly AppSettings _appSettings;
+        private readonly IEventBus _eventBus;
 
         public RequestPerformanceBehaviour(
-            ILogger<TRequest> logger, 
+            ILogger<TRequest> logger,
             // ICurrentUserService currentUserService,
             //IIdentityService identityService,
             IMachineLearningDbContext dbContext,
-            IOptions<AppSettings> settings)
+            IOptions<AppSettings> settings,
+            IEventBus eventBus)
         {
             _timer = new Stopwatch();
 
@@ -42,7 +46,7 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Behav
             _appSettings = settings.Value;
             // _machineLearningClientsHttpClient = new ClientsClient(_appSettings.MachineLearningApi, new HttpClient());
             _paymentClientsHttpClient = new Payment_SimpleCloud_MicroservicesHttp.ClientTasksClient(new HttpClient()) { BaseUrl = _appSettings.PaymentApi };
-
+            _eventBus = eventBus;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
@@ -107,7 +111,17 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Behav
 
         public async Task AnnounceTaskExecutedAsync(Client client, string taskName, DateTime startTime, DateTime endTime)
         {
-            await _paymentClientsHttpClient.CreateClientAsync(new Payment_SimpleCloud_MicroservicesHttp.AddClientTaskCommand() { ClientEmail = client.Email, TaskName = taskName, StartTIme = startTime, EndTime = endTime});
+            var @event = new MLTaskPerformedIntegrationEvent()
+            {
+                ClientEmail = client.Email,
+                StartTime = startTime,
+                EndTime = endTime,
+                TaskName = taskName
+            };
+
+            _eventBus.Publish(@event);
+
+            // await _paymentClientsHttpClient.CreateClientAsync(new Payment_SimpleCloud_MicroservicesHttp.AddClientTaskCommand() { ClientEmail = client.Email, TaskName = taskName, StartTIme = startTime, EndTime = endTime});
         }
     }
 }

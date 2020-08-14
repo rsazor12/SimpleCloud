@@ -12,31 +12,40 @@ using Payment_SimpleCloud_MicroservicesHttp.Infrastructure;
 using Payment_SimpleCloud_MicroservicesHttp.Application;
 using Payment_SimpleCloud_MicroservicesHttp.Application.Common.Interfaces;
 using Payment_SimpleCloud_MicroservicesHttp.Infrastructure.Persistence;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
+using RabbitMQ.Client;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+using Payment_SimpleCloud_MicroservicesHttp.WebUI.IntegrationEvents;
+using Payment_SimpleCloud_MicroservicesHttp.Application.IntegrationEvents.EventHandling;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
+using Autofac;
 
 namespace Payment_SimpleCloud_MicroservicesHttp
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
+        public AppSettings _appSettings { get; set; }
+
         public Startup(
             IConfiguration configuration
             )
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
     
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<AppSettings>(options => Configuration.GetSection("AppSettings").Bind(options));
 
-            {
-                var appSettings = new AppSettings();
-                Configuration.GetSection(nameof(AppSettings)).Bind(appSettings);
+            _appSettings = new AppSettings();
+            Configuration.GetSection(nameof(AppSettings)).Bind(_appSettings);
 
-                services.AddInfrastructure(appSettings);
-            }
+            AddEventBus(services);
+
+            services.AddInfrastructure(_appSettings);
 
             services.AddApplication();
 
@@ -142,6 +151,75 @@ namespace Payment_SimpleCloud_MicroservicesHttp
             //        spa.UseAngularCliServer(npmScript: "start");
             //    }
             //});
+
+            ConfigureEventBus(app);
+        }
+
+        private void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+
+            eventBus.Subscribe<ClientCreatedIntegrationEvent, ClientCreatedIntegrationEventHandler>();
+            eventBus.Subscribe<MLTaskPerformedIntegrationEvent, MLTaskPerformedIntegrationEventHandler>();
+            // eventBus.Subscribe<OrderStartedIntegrationEvent, OrderStartedIntegrationEventHandler>();
+        }
+
+        public void AddEventBus(IServiceCollection services)
+        {
+            services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+            {
+                // var settings = sp.GetRequiredService<IOptions<CatalogSettings>>().Value;
+                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+
+                var factory = new ConnectionFactory()
+                {
+                    HostName = _appSettings.EventBusHostName,
+                    DispatchConsumersAsync = true
+                };
+
+                if (!string.IsNullOrEmpty(_appSettings.EventBusUserName))
+                {
+                    factory.UserName = _appSettings.EventBusUserName;
+                }
+
+                if (!string.IsNullOrEmpty(_appSettings.EventBusPassword))
+                {
+                    factory.Password = _appSettings.EventBusPassword;
+                }
+
+                var retryCount = 5;
+                if (!string.IsNullOrEmpty(_appSettings.EventBusRetryCount))
+                {
+                    retryCount = int.Parse(_appSettings.EventBusRetryCount);
+                }
+
+                return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
+            });
+
+
+            services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+
+            services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
+            {
+                var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+                var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+                var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+
+                var retryCount = 5;
+                if (!string.IsNullOrEmpty(_appSettings.EventBusRetryCount))
+                {
+                    retryCount = int.Parse(_appSettings.EventBusRetryCount);
+                }
+
+                return new EventBusRabbitMQ(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubcriptionsManager, _appSettings.SubscriptionClientName, retryCount);
+            });
+
+            services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+
+            services.AddTransient<ItemCreatedIntegrationEventHandler>();
+            services.AddTransient<ClientCreatedIntegrationEventHandler>();
+            services.AddTransient<MLTaskPerformedIntegrationEventHandler>();
         }
     }
 }

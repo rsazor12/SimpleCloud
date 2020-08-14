@@ -15,9 +15,10 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Domain.Entities
         {
             ClientTasks = new HashSet<ClientTask>();
         }
-        public Client(string email, string name, string surname)
+        public Client(Guid id, string email)
         {
             ClientTasks = new HashSet<ClientTask>();
+            Id = id;
             Email = email;
         }
 

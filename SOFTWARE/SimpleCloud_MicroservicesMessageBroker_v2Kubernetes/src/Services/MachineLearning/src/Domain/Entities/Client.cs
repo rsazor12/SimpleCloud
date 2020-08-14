@@ -17,8 +17,9 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Domain.Entities
         {
 
         }
-        public Client(string email)
+        public Client(Guid id, string email)
         {
+            Id = id;
             Email = email;
         }
     }

@@ -3,6 +3,7 @@ using MediatR;
 using Payment_SimpleCloud_MicroservicesHttp.Application.Common.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,10 +11,10 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Application.Invoice.Queries.GetI
 {
     public class GetInvoiceQuery : IRequest<IEnumerable<GetInvoiceVM>>
     {
-        public Guid MLServiceId { get; set; }
+        public Guid ClientId { get; set; }
     }
 
-    public class GetTodosQueryHandler : IRequestHandler<GetInvoiceQuery, IEnumerable<GetInvoiceVM>>
+    public class GetInvoiceQueryHandler : IRequestHandler<GetInvoiceQuery, IEnumerable<GetInvoiceVM>>
     {
         private readonly IPaymentDbContext _dbContext;
         private readonly IMapper _mapper;
@@ -21,7 +22,7 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Application.Invoice.Queries.GetI
         private readonly double milisecondCost = 0.001; // TODO - get this value from database
 
 
-        public GetTodosQueryHandler(IPaymentDbContext context, IMapper mapper)
+        public GetInvoiceQueryHandler(IPaymentDbContext context, IMapper mapper)
         {
             _dbContext = context;
             _mapper = mapper;
@@ -36,15 +37,17 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Application.Invoice.Queries.GetI
             //    .FirstOrDefaultAsync(mlService => mlService.Id == request.MLServiceId)
             //    ?? throw new NotFoundException(nameof(MLService), request.MLServiceId);
 
-            //var tasks = mlService.ServiceDetails.ServiceTasks.ToList();
+            var clientTasks = _dbContext.ClientTasks.Where(clientTask => clientTask.Client.Id == request.ClientId).ToList();
 
-            //var invoice = tasks.Select(task => {
-            //    var timeDifference = task.EndTime.Subtract(task.StartTime).TotalMilliseconds;
-            //    var cost = timeDifference * milisecondCost;
-            //    return new GetInvoiceVM(task.Name, timeDifference, milisecondCost, cost);
-            //});
+            // var tasks = mlService.ServiceDetails.ServiceTasks.ToList();
 
-            IEnumerable<GetInvoiceVM> invoice = null;
+            var invoice = clientTasks.Select(task =>
+            {
+                var timeDifference = task.EndTime.Subtract(task.StartTime).TotalMilliseconds;
+                var cost = timeDifference * milisecondCost;
+                return new GetInvoiceVM(task.Name, timeDifference, milisecondCost, cost);
+            });
+
             return invoice;
         }
     }

@@ -159,6 +159,7 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
             eventBus.Subscribe<ItemCreatedIntegrationEvent, ItemCreatedIntegrationEventHandler>();
+            eventBus.Subscribe<ClientCreatedIntegrationEvent, ClientCreatedIntegrationEventHandler>();
             // eventBus.Subscribe<OrderStartedIntegrationEvent, OrderStartedIntegrationEventHandler>();
         }
 
@@ -216,6 +217,7 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 
             services.AddTransient<ItemCreatedIntegrationEventHandler>();
+            services.AddTransient<ClientCreatedIntegrationEventHandler>();
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Domain.Entities
 {
     public class Entity
     {
-        public Guid Id { get; private set; }
+        public Guid Id { get; protected set; }
 
         public Entity()
         {

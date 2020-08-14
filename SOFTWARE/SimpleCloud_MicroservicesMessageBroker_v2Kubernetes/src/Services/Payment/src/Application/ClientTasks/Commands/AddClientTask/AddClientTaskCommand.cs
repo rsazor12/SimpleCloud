@@ -23,11 +23,11 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Application.ClientTasks.Commands
 
     }
 
-    public class AddClientCommandHandler : IRequestHandler<AddClientTaskCommand, CommandHandlerResponse<Guid>>
+    public class AddClientTaskCommandHandler : IRequestHandler<AddClientTaskCommand, CommandHandlerResponse<Guid>>
     {
         private readonly IPaymentDbContext _dbContext;
 
-        public AddClientCommandHandler(IPaymentDbContext dbContext)
+        public AddClientTaskCommandHandler(IPaymentDbContext dbContext)
         {
             _dbContext = dbContext;
         }

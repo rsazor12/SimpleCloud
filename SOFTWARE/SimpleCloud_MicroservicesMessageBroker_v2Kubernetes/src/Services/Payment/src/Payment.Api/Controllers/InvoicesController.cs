@@ -10,11 +10,11 @@ namespace Payment_SimpleCloud_MicroservicesHttp.WebUI.Controllers
     [ApiController]
     public class InvoicesController : ApiController
     {
-        [HttpGet("{mlServiceId}")]
-        public async Task<IActionResult> Get(Guid mlServiceId)
+        [HttpGet("{clientId}")]
+        public async Task<IActionResult> Get(Guid clientId)
         {
             // return Ok();
-            var result = await Mediator.Send(new GetInvoiceQuery() { MLServiceId = mlServiceId });
+            var result = await Mediator.Send(new GetInvoiceQuery() { ClientId = clientId });
 
             return Ok(result);
         }

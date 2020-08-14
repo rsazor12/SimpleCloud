@@ -1,58 +1,41 @@
-﻿//using MachineLearning_SimpleCloud_MicroservicesHttp.WebUI.IntegrationEvents;
-//using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-//using System.Threading.Tasks;
+﻿using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Interfaces;
+using MachineLearning_SimpleCloud_MicroservicesHttp.WebUI.IntegrationEvents;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+using System.Threading.Tasks;
+using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.Exceptions;
+using MachineLearning_SimpleCloud_MicroservicesHttp.Domain.Entities;
+using System.Threading;
 
-//namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.IntegrationEvents.EventHandling
-//{
-//    public class ClientCreatedIntegrationEventHandler : IIntegrationEventHandler<ClientCreatedIntegrationEvent>
-//    {
-//        // private readonly ILogger<ProductPriceChangedIntegrationEventHandler> _logger;
-//        // private readonly IBasketRepository _repository;
+namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.IntegrationEvents.EventHandling
+{
+    public class ClientCreatedIntegrationEventHandler : IIntegrationEventHandler<ClientCreatedIntegrationEvent>
+    {
+        private readonly IMachineLearningDbContext _machineLearningDbContext;
 
-//        public ClientCreatedIntegrationEventHandler()
-//            //ILogger<ProductPriceChangedIntegrationEventHandler> logger,
-//            // IBasketRepository repository)
-//        {
-//            // _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-//            // _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-//        }
+        public ClientCreatedIntegrationEventHandler(IMachineLearningDbContext dbContext)
+        {
+            _machineLearningDbContext = dbContext;
+        }
 
-//        public async Task Handle(ClientCreatedIntegrationEvent @event)
-//        {
-//            //using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
-//            //{
-//            //    // _logger.LogInformation("----- Handling integration event: {IntegrationEventId} at {AppName} - ({@IntegrationEvent})", @event.Id, Program.AppName, @event);
+        public async Task Handle(ClientCreatedIntegrationEvent @event)
+        {
+            var user = await _machineLearningDbContext.Clients
+                .FirstOrDefaultAsync(client => client.Email == @event.Email);
 
-//            //    var userIds = _repository.GetUsers();
+            if (user != null)
+                return;
 
-//            //    foreach (var id in userIds)
-//            //    {
-//            //        var basket = await _repository.GetBasketAsync(id);
+            //if (user != null)
+            //    throw new ConflictException($"Entity {nameof(user)} with email {command.Email} already exists in database");
 
-//            //        await UpdatePriceInBasketItems(@event.ProductId, @event.NewPrice, @event.OldPrice, basket);
-//            //    }
-//            //}
-//        }
+            var newUser = new Client(@event.ClientId, @event.Email);
 
-//        //private async Task UpdatePriceInBasketItems(int productId, decimal newPrice, decimal oldPrice, CustomerBasket basket)
-//        //{
-//        //    var itemsToUpdate = basket?.Items?.Where(x => x.ProductId == productId).ToList();
+            await _machineLearningDbContext.Clients.AddAsync(newUser);
 
-//        //    if (itemsToUpdate != null)
-//        //    {
-//        //        _logger.LogInformation("----- ProductPriceChangedIntegrationEventHandler - Updating items in basket for user: {BuyerId} ({@Items})", basket.BuyerId, itemsToUpdate);
+            await _machineLearningDbContext.SaveChangesAsync(default(CancellationToken));
 
-//        //        foreach (var item in itemsToUpdate)
-//        //        {
-//        //            if (item.UnitPrice == oldPrice)
-//        //            {
-//        //                var originalPrice = item.UnitPrice;
-//        //                item.UnitPrice = newPrice;
-//        //                item.OldUnitPrice = originalPrice;
-//        //            }
-//        //        }
-//        //        await _repository.UpdateBasketAsync(basket);
-//        //    }
-//        //}
-//    }
-//}
+        }
+    }
+
+}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.IntegrationEvents
+namespace Payment_SimpleCloud_MicroservicesHttp.WebUI.IntegrationEvents
 {
     public class ClientCreatedIntegrationEvent : IntegrationEvent
     {
@@ -12,3 +12,4 @@ namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.IntegrationEvents
         public string Email { get; set; }
     }
 }
+

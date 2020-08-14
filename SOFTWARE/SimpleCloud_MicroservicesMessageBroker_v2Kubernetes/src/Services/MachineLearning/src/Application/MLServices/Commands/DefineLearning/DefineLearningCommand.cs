@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MachineLearning_SimpleCloud_MicroservicesHttp.Application.Common.CQRS;
 
 namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.MLServices.Commands.DefineLearning
 {
