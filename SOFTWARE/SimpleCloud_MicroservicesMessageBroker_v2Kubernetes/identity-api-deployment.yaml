@@ -22,11 +22,28 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: identity-api
+        deploy: v6_2
     spec:
       containers:
-      - image: rsazor12/identityapi:v2
+      - image: rsazor12/identityapi:v7
         imagePullPolicy: ""
         name: identity-api
+        env:
+          - name: AppSettings__ConnectionStrings__DefaultConnection
+            valueFrom:
+              configMapKeyRef:
+                name: identityapi-configmap
+                key: connection_string
+          - name: AppSettings__EventBusConnection
+            valueFrom:
+              configMapKeyRef:
+                name: identityapi-configmap
+                key: rabbitmq_connection
+          - name: AppSettings__EventBusHostName
+            valueFrom:
+              configMapKeyRef:
+                name: identityapi-configmap
+                key: rabbitmq_hostname
         ports:
         - containerPort: 80
         resources: {}

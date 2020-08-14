@@ -48,9 +48,9 @@ namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<string>> GetConfiguration()
+        public async Task<ActionResult<object>> GetConfiguration()
         {
-            return _appSettings.ConnectionStrings.DefaultConnection;
+            return _appSettings;
         }
 
 
