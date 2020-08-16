@@ -45,8 +45,8 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.MLServices.C
         async Task<CommandHandlerResponse> IRequestHandler<PerformLearningCommand, CommandHandlerResponse>.Handle(PerformLearningCommand request, CancellationToken cancellationToken)
         {
             // TODO those two lines only for tests
-            Thread.Sleep(2000);
-            return new CommandHandlerResponse();
+            //Thread.Sleep(2000);
+            //return new CommandHandlerResponse();
 
 
             var mlService = await _dbContext.MLServices

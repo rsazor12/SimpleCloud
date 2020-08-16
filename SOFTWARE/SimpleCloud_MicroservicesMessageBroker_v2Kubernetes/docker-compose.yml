@@ -15,6 +15,11 @@ services:
     build:
       context: .
       dockerfile: src/Services/Identity/src/Identity.Api/Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
     depends_on:
       - rabbitmq 
       - identity-api-db
@@ -35,6 +40,11 @@ services:
     build:
       context: .
       dockerfile: src/Services/MachineLearning/src/MachineLearning.Api/Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 2048M
     depends_on:
       - machinelearning-api-db
       - rabbitmq
@@ -55,6 +65,11 @@ services:
     build:
       context: .
       dockerfile: src/Services/Payment/src/Payment.Api/Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
     depends_on:
       - payment-api-db
       - rabbitmq

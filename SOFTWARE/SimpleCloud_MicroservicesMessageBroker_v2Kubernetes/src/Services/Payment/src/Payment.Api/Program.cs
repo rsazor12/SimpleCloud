@@ -36,9 +36,9 @@ namespace Payment_SimpleCloud_MicroservicesHttp
                 }
                 catch (Exception ex)
                 {
-                    var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
+                    //var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
 
-                    logger.LogError(ex, "An error occurred while migrating or seeding the database.");
+                    //logger.LogError(ex, "An error occurred while migrating or seeding the database.");
 
                     throw;
                 }

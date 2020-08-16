@@ -51,8 +51,8 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Application.MLServices.C
         public async Task<CommandHandlerResponse<IEnumerable<MakePredictionCommandVM>>> Handle(MakePredictionCommand request, CancellationToken cancellationToken)
         {
             // TODO those two lines only for tests
-            Thread.Sleep(2000);
-            return new CommandHandlerResponse<IEnumerable<MakePredictionCommandVM>>() { Response = null }; ;
+            //Thread.Sleep(2000);
+            //return new CommandHandlerResponse<IEnumerable<MakePredictionCommandVM>>() { Response = null }; ;
 
             var mlService = await _dbContext.MLServices
                .Include(mlService => mlService.ServiceDetails)

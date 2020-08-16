@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: paymentapi-configmap
+data:
+  # property-like keys; each key maps to a simple value
+  connection_string: "Server=payment-api-db-nodeport;Database=payment-api-db;User=sa;Password=password123!;"
+  rabbitmq_hostname: "rabbitmq-nodeport"
