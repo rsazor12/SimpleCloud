@@ -19,13 +19,13 @@ namespace MachineLearning_SimpleCloud_MicroservicesHttp.Controllers
     {
 
         [HttpPost]
-        public async Task<ActionResult<CommandHandlerResponse<Guid>>> CreateMLService(CreateMLServiceCommand command)
+        public async Task<ActionResult<CommandHandlerResponse<Guid>>> CreateMLService([FromBody]CreateMLServiceCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
 
         [HttpPut]
-        public async Task<ActionResult<CommandHandlerResponse>> UpdateMLService(UpdateMLServiceCommand command)
+        public async Task<ActionResult<CommandHandlerResponse>> UpdateMLService([FromBody]UpdateMLServiceCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

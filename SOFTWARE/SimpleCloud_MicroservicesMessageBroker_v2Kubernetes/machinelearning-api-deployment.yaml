@@ -24,9 +24,20 @@ spec:
         io.kompose.service: machinelearning-api
     spec:
       containers:
-      - image: machinelearningapi
+      - image: rsazor12/machinelearningapi:v4
         imagePullPolicy: ""
         name: machinelearning-api
+        env:
+          - name: AppSettings__ConnectionStrings__DefaultConnection
+            valueFrom:
+              configMapKeyRef:
+                name: machinelearning-api-configmap
+                key: connection_string
+          - name: AppSettings__EventBusHostName
+            valueFrom:
+              configMapKeyRef:
+                name: machinelearning-api-configmap
+                key: rabbitmq_hostname
         ports:
         - containerPort: 80
         resources: {}

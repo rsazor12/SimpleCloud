@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: rammitmq-nodeport
+  name: rabbitmq-nodeport
 spec:
   type: NodePort
   selector:
     io.kompose.service: rabbitmq
   ports:
       # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
-    - port: 15672
-      targetPort: 15672
+    - port: 5672
+      targetPort: 5672
       # Optional field
       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
-      nodePort: 30672
+      nodePort: 31672

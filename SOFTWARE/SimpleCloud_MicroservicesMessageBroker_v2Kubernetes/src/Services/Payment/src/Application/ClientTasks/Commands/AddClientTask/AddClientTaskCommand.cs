@@ -42,7 +42,7 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Application.ClientTasks.Commands
 
 
             // var newUser = _mapper.Map<Client>(request);
-            var newTask = new ClientTask(request.TaskName, request.StartTIme, request.EndTime);
+            var newTask = new ClientTask(user, request.TaskName, request.StartTIme, request.EndTime);
 
             await _dbContext.ClientTasks.AddAsync(newTask);
 

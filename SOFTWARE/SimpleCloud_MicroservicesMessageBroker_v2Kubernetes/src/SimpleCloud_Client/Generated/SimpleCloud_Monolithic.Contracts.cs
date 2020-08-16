@@ -136,8 +136,18 @@ namespace SimpleCloudMonolithic_Client
         [Newtonsoft.Json.JsonProperty("summary", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Summary { get; set; }
     
-    
     }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.15.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class GetInvoiceViewModel
+    {
+        public string TaskName { get; set; }
+        public double Time { get; set; }
+        public double MilisecondRate { get; set; }
+        public double Cost { get; set; }
+
+    }
+
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.5.0.0 (NJsonSchema v10.1.15.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class FileResponse : System.IDisposable

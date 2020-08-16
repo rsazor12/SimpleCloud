@@ -4,6 +4,5 @@ metadata:
   name: identityapi-configmap
 data:
   # property-like keys; each key maps to a simple value
-  connection_string: "Server=172.18.0.7;Database=identity-api-db;User=sa;Password=password123!;"
-  rabbitmq_connection: "10.105.139.212:15672"
-  rabbitmq_hostname: "172.18.0.5"
+  connection_string: "Server=identityapi-db-nodeport;Database=identity-api-db;User=sa;Password=password123!;"
+  rabbitmq_hostname: "rabbitmq-nodeport"

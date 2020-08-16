@@ -26,8 +26,9 @@ namespace Payment_SimpleCloud_MicroservicesHttp.Domain.Entities
 
         }
 
-        public ClientTask(string taskName, DateTime startTime, DateTime endTime)
+        public ClientTask(Client client, string taskName, DateTime startTime, DateTime endTime)
         {
+            Client = client;
             Name = taskName;
             StartTime = startTime;
             EndTime = endTime;

@@ -11,8 +11,5 @@ namespace Identity_SimpleCloud_MicroservicesHttp.Application.Clients.Commands.Cr
 {
     public class ClearDatabaseCommand
     {
-        public string Email { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
     }
 }

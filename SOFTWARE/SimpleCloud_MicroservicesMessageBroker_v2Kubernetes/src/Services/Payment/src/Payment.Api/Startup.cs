@@ -110,11 +110,11 @@ namespace Payment_SimpleCloud_MicroservicesHttp
 
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
+            //app.UseStaticFiles();
+            //if (!env.IsDevelopment())
+            //{
+            //    app.UseSpaStaticFiles();
+            //}
 
             app.UseOpenApi();
 

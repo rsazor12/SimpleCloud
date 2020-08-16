@@ -25,7 +25,7 @@ spec:
         deploy: v6_2
     spec:
       containers:
-      - image: rsazor12/identityapi:v7
+      - image: rsazor12/identityapi:v8
         imagePullPolicy: ""
         name: identity-api
         env:
@@ -34,11 +34,6 @@ spec:
               configMapKeyRef:
                 name: identityapi-configmap
                 key: connection_string
-          - name: AppSettings__EventBusConnection
-            valueFrom:
-              configMapKeyRef:
-                name: identityapi-configmap
-                key: rabbitmq_connection
           - name: AppSettings__EventBusHostName
             valueFrom:
               configMapKeyRef:

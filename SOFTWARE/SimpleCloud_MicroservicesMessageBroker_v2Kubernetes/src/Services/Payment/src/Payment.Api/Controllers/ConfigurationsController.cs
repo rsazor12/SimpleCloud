@@ -3,30 +3,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Identity_SimpleCloud_MicroservicesHttp.Application.Clients.Commands.CreateClient;
-using Identity_SimpleCloud_MicroservicesHttp.Application.Models.HandlerResponse;
-using Identity_SimpleCloud_MicroservicesHttp.Application.Common.Interfaces;
-using Identity_SimpleCloud_MicroservicesHttp.WebUI.Controllers;
-using Identity_SimpleCloud_MicroservicesHttp.Application.Common.Configurations;
 using Microsoft.Extensions.Options;
+using Payment_SimpleCloud_MicroservicesHttp.Application.Common.Configurations;
+using Payment_SimpleCloud_MicroservicesHttp.Application.Common.Interfaces;
+using Payment_SimpleCloud_MicroservicesHttp.Controllers;
 
-namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.Controllers
+namespace Payment_SimpleCloud_MicroservicesHttp.WebUI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ConfigurationsController : ApiController
     {
-        private readonly IIdentityDbContext _identityDbContext;
+        private readonly IPaymentDbContext _paymentDbContext;
 
         private readonly AppSettings _appSettings;
 
 
         public ConfigurationsController(
             IOptions<AppSettings> settings,
-            IIdentityDbContext dbContext)
+            IPaymentDbContext paymentDbContext)
         {
             _appSettings = settings.Value;
-            _identityDbContext = dbContext;
+            _paymentDbContext = paymentDbContext;
         }
 
         //public ConfigurationsController(IIdentityDbContext dbContext, IMapper mapper)
@@ -38,10 +36,13 @@ namespace Identity_SimpleCloud_MicroservicesHttp.WebUI.Controllers
         [HttpPost("clearDatabase")]
         public async Task<ActionResult> ClearDatabase()
         {
-            var clients = _identityDbContext.Clients.ToList();
-            _identityDbContext.Clients.RemoveRange(clients);
+            //var clients = _identityDbContext.Clients.ToList();
+            //_identityDbContext.Clients.RemoveRange(clients);
 
-            await _identityDbContext.SaveChangesAsync(default);
+            _paymentDbContext.Clients.RemoveRange(_paymentDbContext.Clients);
+            _paymentDbContext.ClientTasks.RemoveRange(_paymentDbContext.ClientTasks);
+
+            await _paymentDbContext.SaveChangesAsync(default);
 
             return Ok();
         }
